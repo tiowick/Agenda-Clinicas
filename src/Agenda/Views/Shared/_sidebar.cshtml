@@ -1,0 +1,65 @@
+﻿<!-- ========== Left Sidebar Start ========== -->
+<div class="vertical-menu">
+
+    <div data-simplebar class="h-100">
+
+        <!--- Sidemenu -->
+        <div id="sidebar-menu">
+            <!-- Left Menu Start -->
+            <ul class="metismenu list-unstyled" id="side-menu">
+                <li class="menu-title" key="t-menu">Menu</li>
+
+                @* <li> *@
+                @*     <a href="javascript: void(0);" class="has-arrow waves-effect"> *@
+                @*         <i class="bx bx-home-circle"></i> *@
+                @*         <span key="t-dashboards">Dashboards</span> *@
+                @*     </a> *@
+                @*     <ul class="sub-menu" aria-expanded="false"> *@
+                @*         <li><a href="/" key="t-default">Default</a></li> *@
+                @*         <li><a href="/dashboard/dashboardsaas" key="t-saas">Saas</a></li> *@
+                @*         <li><a href="/dashboard/dashboardcrypto" key="t-crypto">Crypto</a></li> *@
+                @*         <li><a href="/dashboard/dashboardblog" key="t-blog">Blog</a></li> *@
+                @*         <li><a href="/dashboard/dashboardjob" key="t-jobs">Jobs</a></li> *@
+                @*     </ul> *@
+                @* </li> *@
+
+                <li>
+                    <a href="javascript: void(0);" class="h waves-effect">
+                        <i class="bx bx-calendar"></i>
+                        <span key="t-Agenda">Menu principal</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="/Agenda/Calendario" key="t-full-calendar">Agenda</a></li>
+                        @* <li><a href="/Cadastro/Setor" key="t-tui-calendar">Setores</a></li> *@
+                        @* <li><a href="/Relacoes/GeracaoLaudoVisita" key="t-tui-calendar">Laudos</a></li> *@
+                        @* <li><a href="/Calendario/RelatorioVisitas" key="t-tui-calendar">Relatórios</a></li> *@
+                        @* <li><a href="/home/Visita" key="t-tui-calendar">Inicialização Visita</a></li>
+                        <li><a href="/home/Index" key="t-tui-calendar">Solicitações</a></li>
+                        <li><a href="/home/Laudo" key="t-tui-calendar">Laudo da Visita</a></li>
+                        <li><a href="/home/Autorizacao" key="t-tui-calendar">Autorização</a></li> *@
+                    </ul>
+                </li>
+           
+
+                @if (User.IsInRole("Administrador") || User.IsInRole("Desenvolvedor") || User.IsInRole("Gerente") || User.IsInRole("Diretor"))
+                {
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="bx bx-cog"></i>
+                            <span key="t-Solicitacoes">Cadastro</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="/Acessos/Usuario" key="t-default">Cadastrar Usuarios</a></li>
+                            <li><a href="/Acessos/ControleAcessos" key="t-default">Controle de Acessos</a></li>
+                            @* <li><a href="/" key="t-default">Desenvolvimento...</a></li> *@
+                            @* outros itens *@
+                        </ul>
+                    </li>
+                }
+
+            </ul>
+        </div>
+        <!-- Sidebar -->
+    </div>
+</div>
+<!-- Left Sidebar End -->

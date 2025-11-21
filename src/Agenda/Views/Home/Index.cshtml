@@ -1,0 +1,139 @@
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_BlankLayout.cshtml";
+}
+
+@section styles {
+    <!-- DataTables -->
+    <link href="~/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Responsive datatable examples -->
+    <link href="~/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+}
+
+<!-- Container com fundo e overlay -->
+<div style="background: url('@Url.Content("~/assets/images/home-office-fundo.jpg")') no-repeat center center fixed; background-size: cover; position: relative; min-height: 100vh;">
+
+    <!-- overlay escuro -->
+    <div style=" position: absolute;inset: 0; background-color: rgba(0,0,0,0.5); z-index: 1;"></div>
+
+    <!-- conte�do centralizado -->
+    <div class="d-flex align-items-center justify-content-center"
+         style="min-height: 100vh; position: relative; z-index: 2;">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-6 col-xl-5">
+                    <div class="card overflow-hidden rounded-4 shadow">
+                        <div class="bg-primary-subtle">
+                            <div class="row align-items-center">
+                                <div class="col-7">
+                                    <div class="text-primary p-4">
+                                        <h5 class="text-primary">Bem-vindo!</h5>
+                                        <p>Faça login para continuar.</p>
+                                    </div>
+                                </div>
+                                <div class="col-5 d-flex justify-content-center align-items-center">
+                                    @* <img src="~/assets/images/logo-win.png" alt="Logo"
+                                         class="img-fluid" style="max-height: 60px;"> *@
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body pt-0">
+                            <div class="p-2">
+                                <form id="loginForm" asp-controller="Acessos" asp-action="Index" method="post" class="form-horizontal">
+                                    @Html.AntiForgeryToken()
+
+                                    <div class="mb-3">
+                                        <label for="Email" class="form-label">Login</label>
+                                        <input type="text" class="form-control" id="Email" name="Email" placeholder="Email...">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="Senha" class="form-label">Senha</label>
+                                        <div class="input-group">
+                                            <input type="password" class="form-control" id="Senha" name="Senha" placeholder="Senha..." aria-label="Senha">
+                                            <button class="btn btn-light" type="button" id="togglePassword">
+                                                <i class="mdi mdi-eye-outline"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-3 d-grid">
+                                        <button class="btn btn-primary waves-effect waves-light rounded-pill" type="submit">Entrar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <br />
+                    </div>
+                    <div class="mt-5 text-center">
+                        <!-- rodap� opcional -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts {
+    <script src="~/assets/js/app.js"></script>
+    <script src="~/js/ui-toasts.js"></script>
+
+    <script>
+        // Alterna visibilidade da senha
+        document.getElementById('togglePassword')
+            .addEventListener('click', function() {
+                const pwd = document.getElementById('Senha');
+                const type = pwd.type === 'password' ? 'text' : 'password';
+                pwd.type = type;
+                this.querySelector('i').classList.toggle('mdi-eye-outline');
+                this.querySelector('i').classList.toggle('mdi-eye-off-outline');
+            });
+
+        // ===== LÓGICA DE SUBMISSÃO COM AJAX =====
+        $(document).ready(function() {
+            $('#loginForm').on('submit', function(e) {
+                e.preventDefault(); // Impede o envio padrão do formulário
+
+                var form = $(this);
+                var submitButton = form.find('button[type="submit"]');
+                var originalButtonText = submitButton.html();
+
+                // Validação simples
+                if ($('#Email').val() === '' || $('#Senha').val() === '') {
+                    showToastBootstrap('Por favor, preencha o usuário e a senha.', 'warning');
+                    return;
+                }
+
+                // Desabilita o botão e mostra um spinner
+                submitButton.prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Entrando...');
+
+                $.ajax({
+                    type: 'POST',
+                    url: form.attr('action'),
+                    data: form.serialize(),
+                    success: function(response) {
+                        if (response.success) {
+                            // Sucesso, redireciona para a página principal
+                            window.location.href = response.redirectUrl;
+                        } else {
+                            // Falha, mostra a notificação de erro
+                            showToastBootstrap(response.message, 'danger');
+                        }
+                    },
+                    error: function() {
+                        // Erro de comunicação
+                        showToastBootstrap('Ocorreu uma falha de comunicação. Verifique sua conexão e tente novamente.', 'danger');
+                    },
+                    complete: function() {
+                        // Reabilita o botão e restaura o texto original
+                        submitButton.prop('disabled', false).html(originalButtonText);
+                    }
+                });
+            });
+        });
+    </script>
+}

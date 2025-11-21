@@ -1,0 +1,131 @@
+
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.EntityFrameworkCore
+ @inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@{
+
+    var email = User.Identity?.Name;
+    
+
+}
+
+<input type="hidden" class="email" value="@User.Identity?.Name" />
+<header id="page-topbar">
+    <div class="navbar-header">
+        <div class="d-flex">
+            <div class="navbar-brand-box">
+                <a href="" class="logo logo-dark">
+                    <span class="logo-sm">
+                        <img src="~/images/winsigaLogo.png" alt="" height="40">
+                    </span>
+                    <span class="logo-lg">
+                        <img src="~/images/logo.png" alt="" height="40">
+                    </span>
+                </a>
+                <a href="" class="logo logo-light">
+                    <span class="logo-sm">
+                        <img src="~/images/logo-white.png" alt="" height="25">
+                    </span>
+                    <span class="logo-lg">
+                        <img src="~/images/logo-white.png" alt="" height="25">
+                    </span>
+            </div>
+            <button type="button" class="btn btn-sm px-3 font-size-16 header-item waves-effect" id="vertical-menu-btn">
+                <i class="fa fa-fw fa-bars"></i>
+            </button>
+        </div>
+        <div class="d-flex">
+            <div class="d-flex" style="position:relative;">
+                <div style="display:flex;align-self:center;">
+                    <a asp-action="Index" asp-controller="Chat" asp-area="Chats"><i style="font-size:24px; color:grey; cursor:pointer;" class='bx bx-message-rounded-dots'></i></a>
+                    <i id="silenciar-som" style="display:none;position:absolute;font-size:24px;right:-5px;bottom:15px; color:darkred; cursor:pointer;" class='bx bxs-volume-mute'></i>
+                    <span id="badge-chats-abertos" style="display:none;position:absolute;top:2px;right:-5px;background-color:#dc3545;color:white;border-radius:50%;width:18px;height:18px;font-size:10px;font-weight:bold;text-align:center;line-height:18px;">0</span>
+                </div>
+
+                <audio id="som_notificacao" style="display:none;">
+                    <source src="~/audio/novo_chat_alerta.mp3" type="audio/mpeg">
+                </audio>
+                <audio id="som_nova_msg" style="display:none;">
+                    <source src="~/audio/msg_chat_alerta.mp3" type="audio/mpeg">
+                </audio>
+
+
+            </div>
+            <div class="dropdown d-inline-block">
+                <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
+                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img class="rounded-circle header-profile-user" src="~/assets/images/users/user-dummy-img.jpg"
+                         alt="Header Avatar">
+                    <span style="font-size:15px;" class="nome d-none d-xl-inline-block ms-1" key="t-henry">@email</span>
+                    <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
+                </button>
+                <div class="dropdown-menu dropdown-menu-end">
+                    <a class="dropdown-item"><i class="bx bx-user font-size-16 align-middle me-1"></i> <span key="t-profile">Perfil</span></a>
+                    @* @if (admin)
+                    {
+                        <a class="dropdown-item d-block" asp-action="Index" asp-controller="GestaoParametros"><i class="bx bx-wrench font-size-16 align-middle me-1"></i> <span key="t-settings">Configurações</span></a>
+                    } *@
+
+                    @* <dark-mode-switch></dark-mode-switch> *@
+
+                    <div class="dropdown-divider"></div>
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        <div class="dropdown-item text-danger" style="cursor:pointer;">
+                            <form action="/Acessos/Logout" method="post">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn btn-link p-0 border-0 bg-transparent">
+                                    <i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i>
+                                    <span>Sair</span>
+                                </button>
+                            </form>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+@* <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        // Usa a delegação de eventos para garantir que o listener funcione
+        // mesmo que o elemento seja recarregado dinamicamente.
+        document.body.addEventListener('change', function(event) {
+
+            // Verifica se o elemento que acionou o evento é o nosso switch
+            if (event.target.id === 'dark-mode-switch') {
+
+                const modoEscuroAtivado = event.target.checked;
+
+                // O token é necessário para a validação de segurança no controller
+                const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+
+                fetch('/Preferencias/SalvarTema', {
+                    method: 'POST',
+                    headers: {
+                        // Headers importantes para a requisição funcionar corretamente no ASP.NET Core
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'RequestVerificationToken': token
+                    },
+                    body: `aplicaModoEscuro=${modoEscuroAtivado}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Recarrega a página para que o servidor aplique o tema
+                        window.location.reload();
+                    } else {
+                        alert("Erro ao salvar o tema: " + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro na requisição:', error);
+                    alert("Falha de comunicação ao tentar salvar a preferência de tema.");
+                });
+            }
+        });
+    });
+</script> *@

@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+    @* <title>@ViewBag.Title | Skote - Responsive Bootstrap 4 Admin Dashboard</title> *@
+    <title>Agenda | WinSiga</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesbrand" name="author" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="~/assets/images/favicon.ico">
+
+    <!-- Favicons para navegadores modernos -->
+    <link rel="icon" type="image/png" sizes="32x32" href="~/assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/assets/images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="~/assets/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="~/assets/images/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="~/assets/images/android-chrome-512x512.png">
+    <link rel="manifest" href="~/assets/images/site.webmanifest">
+
+
+
+    @RenderSection("styles", required: false)
+
+    <!-- Bootstrap Css -->
+    <link href="~/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Icons Css -->
+    <link href="~/assets/css/icons.min.css" rel="stylesheet" />
+    <!-- App Css-->
+    <link href="~/assets/css/app.min.css" rel="stylesheet" />
+    <!-- Material Design Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.9.55/css/materialdesignicons.min.css" integrity="sha512-rYuaUJW9Jis3tquHOXkt5P+7G5O8K5I1x2aV1N1N1Ge5O8q5I5HU5N5y5Vq0m6U5lP5f5I5P5I5V5I5N5V5I5Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+</head>
+
+<body>
+    @RenderBody()
+
+    @await Html.PartialAsync("~/Views/Shared/_vendor_scripts.cshtml")
+    
+    @RenderSection("scripts", required: false)
+    
+</body>
+</html>

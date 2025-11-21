@@ -1,0 +1,81 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    @await Html.PartialAsync("~/Views/Shared/_title_meta.cshtml")
+    @RenderSection("styles", required: false)
+    @await Html.PartialAsync("~/Views/Shared/_head_css.cshtml")
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
+    <link href="~/assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css">
+    <link href="~/assets/libs/spectrum-colorpicker2/spectrum.min.css" rel="stylesheet" type="text/css">
+    <link href="~/assets/libs/bootstrap-timepicker/css/bootstrap-timepicker.min.css" rel="stylesheet" type="text/css">
+    <link href="~/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="~/assets/libs/@("@chenfengyuan")/datepicker/datepicker.min.css">
+    @* <link rel="stylesheet" href="~/css/setorcustom.css"> *@
+    <link rel="stylesheet" href="~/vendor/css/pages/page-auth.css" />
+    @* <link rel="stylesheet" href="~/css/gridcustom_mobile.css" /> *@
+
+</head>
+<body data-sidebar="dark">
+    <div id="layout-wrapper">
+        @await Html.PartialAsync("~/Views/Shared/_topbar.cshtml")
+        @await Html.PartialAsync("~/Views/Shared/_sidebar.cshtml")
+        <div class="main-content">
+            <div class="page-content">
+                <div class="container-fluid">
+                    @await Html.PartialAsync("~/Views/Shared/_page_title.cshtml")
+                    @RenderBody()
+                </div>
+            </div>
+            @* @await Html.PartialAsync("~/Views/Shared/_footer.cshtml") *@
+        </div>
+    </div>
+    @RenderSection("externalhtml", required: false)
+    @await Html.PartialAsync("~/Views/Shared/_right_sidebar.cshtml")
+
+    <!-- Scripts -->
+    @await Html.PartialAsync("~/Views/Shared/_vendor_scripts.cshtml")
+    <script src="~/lib/jquery-ajax-unobtrusive-main/src/jquery.unobtrusive-ajax.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    @* <!-- plugin js -->
+    <script src="~/assets/libs/moment/min/moment.min.js"></script>
+    <script src="~/assets/libs/jquery-ui-dist/jquery-ui.min.js"></script>
+    <script src="~/assets/libs/fullcalendar/index.global.min.js"></script>
+    <script src='https://cdn.jsdelivr.net/npm/@("@")fullcalendar/core@6.1.8/locales-all.global.min.js'></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdn.tiny.cloud/1/yyw07qr7krzzjum64boblk217puzgn53k0peejrln79fci8x/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css"> *@
+
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Calendar init -->
+    @* <script src="~/assets/js/pages/calendars-full.init.js"></script> *@
+
+    <!--tinymce js-->
+    <script src="~/assets/libs/tinymce/tinymce.min.js"></script>
+    <script src="~/js/jquery.validate.pt-br.js"></script>
+    @* <script src="~/js/DataGrid.js"></script> *@
+    @* <script src="~/js/ui-toasts.js"></script> *@
+    <script src="~/js/validation.js"></script>
+    <script src="~/assets/js/plugin.js"></script>
+    <script src="~/assets/js/app.js"></script>
+
+    @RenderSection("scripts", required: false)
+
+
+</body>
+</html>

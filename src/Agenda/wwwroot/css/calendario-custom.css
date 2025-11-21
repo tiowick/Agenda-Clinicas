@@ -1,0 +1,69 @@
+/* Garante que o calendário ocupe toda a altura do card */
+.card, .card-body {
+    height: 100%;
+}
+#calendar {
+    height: 100%;
+    min-height: 500px;
+}
+.fc {
+    height: 100% !important;
+}
+/* Estilos para o botão "Criar Evento" */
+#btn-new-event {
+    border-radius: 8px; /* Bordas mais arredondadas */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    transition: all 0.3s ease;
+    font-weight: 500;
+    padding: 10px 20px;
+}
+
+#btn-new-event:hover {
+    transform: translateY(-2px); /* Efeito de flutuação */
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+/* Container da legenda */
+.legend-container {
+    margin-top: 1.5rem;
+    padding: 15px;
+    background-color: #f8f9fa; /* Fundo suave */
+    border-radius: 8px;
+}
+
+/* Título da legenda */
+.legend-container h3 {
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    color: #495057;
+}
+
+/* Lista de itens da legenda */
+.status-legend-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Espaçamento entre os itens */
+}
+
+/* Item individual da legenda */
+.status-legend-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    background-color: #fff;
+    border-radius: 6px;
+    border: 1px solid #e9ecef;
+    font-size: 0.9rem;
+    color: #343a40;
+}
+
+/* Círculo de cor */
+.status-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 10px;
+    flex-shrink: 0; /* Impede que o círculo encolha */
+}

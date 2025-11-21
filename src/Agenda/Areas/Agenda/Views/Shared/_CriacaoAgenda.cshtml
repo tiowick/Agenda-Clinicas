@@ -1,0 +1,294 @@
+<div class="modal fade" id="modalCriacaoAgenda" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-header py-4 px-5 border-bottom-0">
+                <h4 class="modal-title" id="modal-title">Cadastro de Agenda</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+
+            <div class="modal-body px-5 py-4">
+                <form id="form_agenda">
+                    <input type="hidden" id="ID" name="ID" value="" />
+                    <input type="hidden" id="TipoSolicitacaoNome" name="TipoSolicitacaoNome" value="">
+
+                    @Html.AntiForgeryToken()
+
+
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="dados-tab" data-bs-toggle="tab" data-bs-target="#dados" type="button" role="tab">Dados Gerais</button>
+                        </li>
+
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="detalhes-tab" data-bs-toggle="tab" data-bs-target="#detalhes" type="button" role="tab">Itens</button>
+                        </li>
+
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="setores-tab" data-bs-toggle="tab" data-bs-target="#setores" type="button" role="tab">Setores</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+
+                            <button class="nav-link" id="localizacao-tab" data-bs-toggle="tab" data-bs-target="#localizacao" type="button" role="tab">Responsáveis</button>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content" id="myTabContent">
+
+
+                        <div class="tab-pane fade show active p-3" id="dados" role="tabpanel">
+                            <div class="row">
+
+                                <div class="col-md-6 mb-3">
+
+                                    <label class="text-danger fw-bold">Empresa</label>
+                                    <select class="select2 form-select" id="EmpresaId" name="EmpresaId" style="display: inline-block; width:100%" required>
+                                        <option value="">Selecione...</option>
+                                    </select>
+
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="text-danger fw-bold">Tipo Solicitação</label>
+
+                                    <select class="form-control select2" id="TipoSolicitacao" name="TipoSolicitacao" style="display: inline-block; width:100%" required>
+                                        <option value="Demonstração">Demonstração</option>
+                                        <option value="Treinamento">Treinamento</option>
+
+                                        <option value="Rotina">Rotina</option>
+                                    </select>
+                                </div>
+
+
+                                <div class="col-md-12 mb-3">
+                                    <label class="text-danger fw-bold">Objetivo</label>
+
+                                    <input type="text" class="form-control" id="Descricao" name="Descricao" required maxlength="100" />
+                                </div>
+
+                                <div class="col-md-6 mb-3" id="container-vendedor-responsavel" style="display: none;">
+                                    <label class="text-danger fw-bold">Vendedor Responsável</label>
+                                    <select class="form-control select2" id="vendedorResponsavelSelect" name="AgVendedorId" style="display: inline-block; width:100%">
+                                        <option value="">Selecione um vendedor...</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+
+                                    <label class="text-danger fw-bold">Solicitante</label>
+                                    <select class="form-control select2" id="Solicitante" name="Solicitante" required style="width: 100%;">
+                                        <option value="">Selecione um solicitante...</option>
+
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="text-danger fw-bold">Clientes</label>
+
+                                    <select class="form-control form-select scrollable-select" id="CCusto_Id" name="CCusto_Id" style="display: inline-block; width:100%" required>
+                                        <option value="">Selecione...</option>
+                                    </select>
+
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="text-danger fw-bold">Contato (E-mail)</label>
+
+                                    <input type="email" class="form-control" name="Contato" id="Contato" maxlength="100" />
+                                </div>
+
+                                <div class="col-md-3 mb-3">
+
+                                    <label class="text-danger fw-bold">Data Início</label>
+                                    <input type="datetime-local" class="form-control" id="DataHora" name="DataHora" required />
+
+                                </div>
+
+                                <div class="col-md-3 mb-3">
+                                    <label class="text-danger fw-bold">Privativa?</label>
+
+                                    <select class="form-control" id="Privativa" name="Privativa">
+                                        <option value="false">Não</option>
+                                        <option value="true">Sim</option>
+
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+
+                                    <label class="text-danger fw-bold">Status</label>
+                                    <select class="select2 form-select" id="Situacao" name="Situacao" style="display: inline-block; width:100%" required>
+                                        <option value="">Selecione...</option>
+                                    </select>
+
+                                </div>
+
+                                <div class="col-md-12 mb-3">
+                                    <label class="text-danger fw-bold">Local</label>
+
+                                    <input type="text" class="form-control" name="Local" id="Local" maxlength="100" />
+                                </div>
+
+                                <div class="col-md-12 mb-3">
+
+                                    <label class="text-danger fw-bold">Observação</label>
+                                    <textarea id="Observacao" name="Observacao" class="form-control" rows="4" maxlength="200" placeholder="Digite sua mensagem aqui..."></textarea>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade p-3" id="detalhes" role="tabpanel">
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="text-danger fw-bold">Grupo</label>
+
+                                    <select class="form-control select2" id="GrupoProduto" name="GrupoProduto" style="display: inline-block; width:100%">
+                                        <option value="">Selecione...</option>
+                                    </select>
+
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="text-danger fw-bold">Tipo</label>
+
+                                    <select class="form-control select2" id="TipoProduto" name="TipoProduto" style="display: inline-block; width:100%">
+                                        <option value="">Selecione...</option>
+                                    </select>
+
+                                </div>
+
+                                <div class="col-md-4 mb-3">
+                                    <label class="text-danger fw-bold">Produto(s)</label>
+
+                                    <input type="hidden" id="IdGrupo" name="IdGrupo" value="">
+                                    <select class="form-control select2" id="produtoSelect" style="display: inline-block; width:100%">
+                                        <option value="">Selecione um produto...</option>
+                                    </select>
+
+                                </div>
+
+                                <div class="col-12 col-md-2 d-flex align-items-end" style="padding-bottom:17px!important;">
+                                    <button type="button" id="incluirBtn" class="btn btn-primary rounded-circle ms-3" style="width: 40px; height: 40px; padding: 0;">
+                                        <span class="fs-4" style="line-height: 40px;">+</span>
+                                    </button>
+
+                                </div>
+                            </div>
+
+                            <div id="produtoGrid" class="mt-4" style="display: none;">
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div id="gridBody">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade p-3" id="setores" role="tabpanel">
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="text-danger fw-bold">Setor</label>
+
+                                    <input type="hidden" id="SetorId" name="SetorId" value="">
+                                    <select class="select2 form-select" id="Setor" name="Setor">
+                                        <option value="">Selecione um setor...</option>
+
+                                    </select>
+                                </div>
+
+                                <div class="col-12 col-md-6 d-flex align-items-end" style="padding-bottom:17px!important;">
+                                    <button type="button" id="incluirBtnSetor" class="btn btn-primary rounded-circle ms-3" style="width: 40px; height: 40px; padding: 0;">
+                                        <span class="fs-4" style="line-height: 40px;">+</span>
+                                    </button>
+
+                                </div>
+
+                                <div id="setorGrid" class="mt-4" style="display: none;">
+                                    <div id="gridBodySetor" class="row g-2">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="tab-pane fade p-3" id="localizacao" role="tabpanel">
+                            <div class="row">
+                                <div class="col-md-6 mb-5">
+                                    <label class="text-danger fw-bold">Adicionar Vendedor à Equipe</label>
+
+                                    <select class="form-control select2" id="vendedorSelect" style="display: inline-block; width:100%">
+                                        <option value="">Selecione os vendedores...</option>
+                                    </select>
+
+                                </div>
+
+                                <div class="col-12 col-md-6 d-flex align-items-end" style="padding-bottom:17px!important;">
+                                    <button type="button" id="incluirBtnVen" class="btn btn-primary rounded-circle ms-3" style="width: 40px; height: 40px; padding: 0;">
+                                        <span class="fs-4" style="line-height: 40px;">+</span>
+                                    </button>
+
+                                </div>
+
+                                <div id="vendedorGrid" class="mt-4" style="display: none;">
+                                    <div class="row">
+
+                                        <div class="col-12">
+                                            <table class="table">
+
+                                                <tbody id="gridBodyVen">
+                                                </tbody>
+
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-12 d-flex justify-content-end">
+                        <button type="button" class="btn btn-light btn-lg me-3" data-bs-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn btn-success salvar" id="BtnInserirDados">Salvar</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    @* <link rel="stylesheet" href="~/css/setorcustom.css"> *@
+    @* <link rel="stylesheet" href="~/css/vendedores-custom.css"> *@
+    @* <link rel="stylesheet" href="~/css/produtos-grid.css"> *@
+    <link rel="stylesheet" href="~/css/calendario-custom.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+}
+
+@section scripts {
+    <script src="https://uicdn.toast.com/tui.code-snippet/latest/tui-code-snippet.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="~/assets/libs/tui-dom/tui-dom.min.js"></script>
+    <script src="~/assets/libs/tui-time-picker/tui-time-picker.min.js"></script>
+
+    <script src="~/assets/libs/tui-date-picker/tui-date-picker.min.js"></script>
+    <script src="~/assets/libs//moment/min/moment.min.js"></script>
+    <script src="~/assets/libs/chance/chance.min.js"></script>
+    <script src="~/assets/libs/tui-calendar/tui-calendar.min.js"></script>
+    <script src="~/assets/js/pages/calendars.js"></script>
+    <script src="~/assets/js/pages/schedules.js"></script>
+    <script src="~/assets/js/pages/calendar.init.js"></script>
+    <script src="~/assets/js/app.js"></script>
+
+    <script type="text/javascript">
+    </script>
+}

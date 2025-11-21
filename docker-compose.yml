@@ -1,0 +1,42 @@
+services:
+  # ----
+  # SERVIÇO 1: Sua Aplicação ASP.NET Core (Agenda)
+  # ----
+  agenda-app:
+    build:
+      # 'context: .' é a pasta raiz (onde o .sln está)
+      context: .
+      # 'dockerfile:' agora aponta para o Dockerfile na raiz
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      # A Connection String que seu app vai usar
+      - ConnectionStrings__DefaultConnection=Host=agenda-db;Port=5432;Database=agenda_prod_db;Username=agenda_user;Password=qwas7845@
+    depends_on:
+      - agenda-db
+
+  # ----
+  # SERVIÇO 2: Seu Banco de Dados PostgreSQL
+  # ----
+  agenda-db:
+    image: postgres:latest
+    restart: always
+    ports: # <--- ADICIONE ESSA SEÇÃO
+      - "5433:5432" # Mapeia a porta 5432(Container) para 5433(Seu PC)
+    environment:
+      - POSTGRES_USER=agenda_user
+      # Senha correspondente à da Connection String
+      - POSTGRES_PASSWORD=qwas7845@
+      - POSTGRES_DB=agenda_prod_db
+    volumes:
+      - agenda-data:/var/lib/postgresql
+
+# ----
+# Volumes
+# ----
+volumes:
+  agenda-data:
+    driver: local
