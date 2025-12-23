@@ -4,39 +4,18 @@ services:
   # ----
   agenda-app:
     build:
-      # 'context: .' é a pasta raiz (onde o .sln está)
       context: .
-      # 'dockerfile:' agora aponta para o Dockerfile na raiz
       dockerfile: Dockerfile
+    container_name: agenda-app
     restart: always
     ports:
       - "8080:8080"
+    # Isso aqui permite que o container enxergue o seu PC como "host.docker.internal"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
-      # A Connection String que seu app vai usar
-      - ConnectionStrings__DefaultConnection=Host=agenda-db;Port=5432;Database=agenda_prod_db;Username=agenda_user;Password=qwas7845@
-    depends_on:
-      - agenda-db
-
-  # ----
-  # SERVIÇO 2: Seu Banco de Dados PostgreSQL
-  # ----
-  agenda-db:
-    image: postgres:latest
-    restart: always
-    ports: # <--- ADICIONE ESSA SEÇÃO
-      - "5433:5432" # Mapeia a porta 5432(Container) para 5433(Seu PC)
-    environment:
-      - POSTGRES_USER=agenda_user
-      # Senha correspondente à da Connection String
-      - POSTGRES_PASSWORD=qwas7845@
-      - POSTGRES_DB=agenda_prod_db
-    volumes:
-      - agenda-data:/var/lib/postgresql
-
-# ----
-# Volumes
-# ----
-volumes:
-  agenda-data:
-    driver: local
+      # MUDANÇA CRÍTICA AQUI:
+      # 1. Host=host.docker.internal -> Aponta para o seu computador (onde o banco está exposto)
+      # 2. Port=5434 -> A porta externa que configuramos no seu banco manual
+      - ConnectionStrings__DefaultConnection=Host=host.docker.internal;Port=5434;Database=agenda_prod_db;Username=agenda_user;Password=qwas7845@
