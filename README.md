@@ -1,6 +1,6 @@
 # Agenda Para Clínicas Com C# - AspNet Core
 
-**Sistema de Gestão de Agenda com Autenticação, Autorização Hierárquica e Arquitetura em Camadas**
+# Sistema de Gestão de Agenda com Autenticação, Autorização Hierárquica e Arquitetura em Camadas
 
 
 # Author: Jeferson Pimentel Sena, Software Engineer.
