@@ -1,4 +1,4 @@
-# Agenda 2.0
+# Agenda Para Clínicas Com C# - AspNet Core
 
 **Sistema de Gestão de Agenda com Autenticação, Autorização Hierárquica e Arquitetura em Camadas**
 
