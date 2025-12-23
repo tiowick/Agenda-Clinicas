@@ -2752,8 +2752,8 @@ namespace Agenda.Aplicacao.Entidades
 
 ## 📞 Suporte e Contribuição
 
-Para dúvidas sobre a arquitetura, entre em contato, vamos trocar experiências!
-linkedin : https://www.linkedin.com/in/jeferson-sena-ti/
-WhatsApp : https://.wa.me/71981859864
+# Para dúvidas sobre a arquitetura, entre em contato, vamos trocar experiências!
+## linkedin : https://www.linkedin.com/in/jeferson-sena-ti/
+## WhatsApp : https://wa.me/71981859864/
 
 **Último atualizado:** Dezembro 23/12/2025.
