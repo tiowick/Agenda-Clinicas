@@ -7,17 +7,21 @@
 
 ## 📋 Sumário
 
-1. [Por que essa Arquitetura?](#por-que-essa-arquitetura)
-2. [Visão Geral](#visão-geral)
-3. [Arquitetura do Projeto](#arquitetura-do-projeto)
-4. [Estrutura de Camadas](#estrutura-de-camadas)
-5. [Autenticação](#autenticação)
-6. [Autorização e Controle de Acesso](#autorização-e-controle-de-acesso)
-7. [Fluxo de Requisições](#fluxo-de-requisições)
-8. [DTOs e Entidades](#dtos-e-entidades)
-9. [Injeção de Dependências](#injeção-de-dependências)
-10. [Configuração e Deploy](#configuração-e-deploy)
-11. [Regras de Negócio](#regras-de-negócio)
+1. [Por que essa Arquitetura?](#-por-que-essa-arquitetura)
+2. [Visão Geral](#-visão-geral)
+3. [Os 4 Pilares da Escalabilidade e Manutenibilidade](#-os-4-pilares-da-escalabilidade-e-manutenibilidade)
+4. [Como Escala com Essa Arquitetura?](#-como-escala-com-essa-arquitetura)
+5. [Por que Fácil de Manter?](#-por-que-fácil-de-manter)
+6. [Arquitetura do Projeto](#-arquitetura-do-projeto)
+7. [Estrutura de Camadas](#-estrutura-de-camadas)
+8. [Autenticação](#-autenticação)
+9. [Autorização e Controle de Acesso](#-autorização-e-controle-de-acesso)
+10. [Fluxo de Requisições](#-fluxo-de-requisições-exemplos-reais)
+11. [DTOs e Entidades](#-dtos-e-entidades)
+12. [Injeção de Dependências](#-injeção-de-dependências)
+13. [Configuração e Deploy](#-configuração-e-deploy)
+14. [Docker - Containerização da Aplicação](#-docker---containerização-da-aplicação)
+15. [Regras de Negócio](#-regras-de-negócio-reais)
 
 ---
 
