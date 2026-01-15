@@ -1,7 +1,6 @@
-# Agenda Para Clínicas Com C# - AspNet Core
+# CRM Para Clínicas Com C# - AspNet Core MVC
 
-# Sistema de Gestão de Agenda com Autenticação, Autorização Hierárquica e Arquitetura em Camadas
-
+# Sistema de CRM com Autenticação, Autorização Hierárquica e Arquitetura em Camadas
 
 # Author: Jeferson Pimentel Sena, Software Engineer.
 
