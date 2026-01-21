@@ -1,0 +1,30 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    ViewBag.Title = "Usuários";
+    ViewBag.pTitle = "Cadastro de Usuários";
+    ViewBag.pageTitle = "Usuários";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    // await Html.RenderPartialAsync("../Shared/_CriacaoAgenda.cshtml");
+
+}
+
+
+<!-- END DEFAULT DATATABLE -->
+<div class="panel panel-default">
+    <div class="panel-body">
+        <span style="color:red">Obs.: Em Desenvolvimento</span>
+        <button type="button" class="btn btn-xs" data-toggle="tooltip" data-placement="top" title="Config. Usuários" data-original-title="Tooltip on top"><span class=" fa fa-info-circle"></span></button>
+    </div>
+</div>
+
+<!-- END PAGE CONTENT WRAPPER -->
+<script type="text/javascript">
+    var form = $('#form-data');
+    var token = $('input[name="__RequestVerificationToken"]', form).val();
+    $('#__RequestVerificationToken').val(token);
+
+</script>

@@ -1,65 +1,118 @@
-﻿<!-- ========== Left Sidebar Start ========== -->
+﻿@{
+    string currentPath = Context.Request.Path.ToString().ToLower();
+    string IsActive(string prefix)
+    {
+        return currentPath.StartsWith(prefix) ? "mm-active" : "";
+    }
+}
+
 <div class="vertical-menu">
 
     <div data-simplebar class="h-100">
 
-        <!--- Sidemenu -->
         <div id="sidebar-menu">
-            <!-- Left Menu Start -->
+            <div class="text-center mt-2 mb-6">
+
+                <div class="text-center mb-3">
+
+                    <img src="~/assets/images/users/Icone Perfil.png"
+                         alt="Perfil"
+                         class="rounded-circle"
+                         style="width: 100px;height: 100px; object-fit: cover; border: 2px solid #ffffff; margin-top: -9px;">
+
+                    <div class="mt-4">
+                        <h6 class="mb-0 text-white">@User?.Identity?.Name</h6>
+                        <small class="text-muted">Bem-vindo</small>
+                    </div>
+
+                </div>
+
+            </div>
+
             <ul class="metismenu list-unstyled" id="side-menu">
                 <li class="menu-title" key="t-menu">Menu</li>
 
-                @* <li> *@
-                @*     <a href="javascript: void(0);" class="has-arrow waves-effect"> *@
-                @*         <i class="bx bx-home-circle"></i> *@
-                @*         <span key="t-dashboards">Dashboards</span> *@
-                @*     </a> *@
-                @*     <ul class="sub-menu" aria-expanded="false"> *@
-                @*         <li><a href="/" key="t-default">Default</a></li> *@
-                @*         <li><a href="/dashboard/dashboardsaas" key="t-saas">Saas</a></li> *@
-                @*         <li><a href="/dashboard/dashboardcrypto" key="t-crypto">Crypto</a></li> *@
-                @*         <li><a href="/dashboard/dashboardblog" key="t-blog">Blog</a></li> *@
-                @*         <li><a href="/dashboard/dashboardjob" key="t-jobs">Jobs</a></li> *@
-                @*     </ul> *@
-                @* </li> *@
-
-                <li>
-                    <a href="javascript: void(0);" class="h waves-effect">
+                @* Adicionei a classe @IsActive para garantir que abra se estiver na agenda *@
+                <li class="@IsActive("/agenda")">
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="bx bx-calendar"></i>
                         <span key="t-Agenda">Menu principal</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="/Agenda/Calendario" key="t-full-calendar">Agenda</a></li>
-                        @* <li><a href="/Cadastro/Setor" key="t-tui-calendar">Setores</a></li> *@
-                        @* <li><a href="/Relacoes/GeracaoLaudoVisita" key="t-tui-calendar">Laudos</a></li> *@
-                        @* <li><a href="/Calendario/RelatorioVisitas" key="t-tui-calendar">Relatórios</a></li> *@
-                        @* <li><a href="/home/Visita" key="t-tui-calendar">Inicialização Visita</a></li>
-                        <li><a href="/home/Index" key="t-tui-calendar">Solicitações</a></li>
-                        <li><a href="/home/Laudo" key="t-tui-calendar">Laudo da Visita</a></li>
-                        <li><a href="/home/Autorizacao" key="t-tui-calendar">Autorização</a></li> *@
+                        <li><a href="/Agenda/Calendario" key="t-full-calendar"><i class="bx bx-time-five"></i> Agendamentos</a></li>
+                        <li><a href="/Agenda/Laudos" key="t-default"><i class="bx bx-detail"></i> Laudos</a></li>
                     </ul>
                 </li>
-           
+
 
                 @if (User.IsInRole("Administrador") || User.IsInRole("Desenvolvedor") || User.IsInRole("Gerente") || User.IsInRole("Diretor"))
                 {
                     <li>
+                        @* href corrigido para javascript: void(0) *@
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
-                            <i class="bx bx-cog"></i>
+                            <i class="bx bx-edit"></i>
                             <span key="t-Solicitacoes">Cadastro</span>
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
-                            <li><a href="/Acessos/Usuario" key="t-default">Cadastrar Usuarios</a></li>
-                            <li><a href="/Acessos/ControleAcessos" key="t-default">Controle de Acessos</a></li>
-                            @* <li><a href="/" key="t-default">Desenvolvimento...</a></li> *@
-                            @* outros itens *@
+                            @* Todos os hrefs vazios corrigidos *@
+                            <li><a href="javascript: void(0);" key="t-default"><i class="bx bx-box"></i> Produtos</a></li>
+                            <li><a href="javascript: void(0);" key="t-default"><i class="bx bxs-bank"></i> Bancos</a></li>
+                            <li><a href="javascript: void(0);" key="t-default"><i class="bx bx-user-pin"></i> Clientes</a></li>
+                            <li><a href="javascript: void(0);" key="t-default"><i class="bx bx-building"></i> Empresas</a></li>
+                            <li><a href="javascript: void(0);" key="t-default"><i class="bx bx-group"></i> Grupos</a></li>
+                            <li><a href="javascript: void(0);" key="t-default"><i class="bx bx-heart"></i> Pacientes</a></li>
+                            <li><a href="javascript: void(0);" key="t-default"><i class="bx bx-sitemap"></i> Setores</a></li>
                         </ul>
                     </li>
                 }
 
+                @if (User.IsInRole("Administrador") || User.IsInRole("Desenvolvedor") || User.IsInRole("Gerente") || User.IsInRole("Diretor"))
+                {
+                    @* Adicionei a classe @IsActive para garantir que abra se estiver em acessos *@
+                    <li class="@IsActive("/acessos")">
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="bx bx-shield-quarter"></i>
+                            <span key="t-Solicitacoes">Controle de Acessos</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="/Acessos/Usuario" key="t-default"><i class="bx bx-user-circle"></i> Usuários</a></li>
+                            <li><a href="javascript: void(0);" key="t-default"><i class="bx bx-id-card"></i> Perfil</a></li>
+                        </ul>
+                    </li>
+
+                }
+
+                @if (User.IsInRole("Administrador") || User.IsInRole("Desenvolvedor") || User.IsInRole("Gerente") || User.IsInRole("Diretor"))
+                {
+
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="bx bx-bar-chart-alt-2"></i>
+                            <span key="t-Solicitacoes">Gerencial</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="javascript: void(0);" key="t-default"><i class="bx bx-file"></i> Relatórios</a></li>
+                        </ul>
+                    </li>
+
+                }
+
+                @if (User.IsInRole("Administrador") || User.IsInRole("Desenvolvedor") || User.IsInRole("Gerente") || User.IsInRole("Diretor"))
+                {
+
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="bx bx-plug"></i>
+                            <span key="t-Solicitacoes">Integrações</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="javascript: void(0);" key="t-default"><i class="bx bxl-whatsapp"></i> WhatsApp</a></li>
+                        </ul>
+                    </li>
+
+                }
+
             </ul>
         </div>
-        <!-- Sidebar -->
     </div>
 </div>
-<!-- Left Sidebar End -->

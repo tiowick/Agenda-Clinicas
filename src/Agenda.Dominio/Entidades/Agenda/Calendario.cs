@@ -1,6 +1,7 @@
 ﻿using Agenda.Dominio.Reflection;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics;
@@ -20,116 +21,135 @@ namespace Agenda.Dominio.Entidades.Agenda
         }
 
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Required(ErrorMessage = "obrigatório informar a propriedade: id", AllowEmptyStrings = false)]
-        [Column("id", Order = 1, TypeName = "int")]
+        [Column("id", Order = 1, TypeName = "bigint")]
         public int ID { get; set; } = default!;
 
-        [Required(ErrorMessage = "obrigatório informar a propriedade: ag_vendedorid", AllowEmptyStrings = false)]
-        [Column("ag_vendedorid", Order = 2, TypeName = "int")]
-        public int AgVendedorId { get; set; } = default!;
+        [Required(ErrorMessage = "obrigatório informar a propriedade: idvendedor", AllowEmptyStrings = false)]
+        [Column("idvendedor", Order = 2, TypeName = "int")]
+        public long IdVendedor { get; set; } = default!;
 
+        [Required(ErrorMessage = "obrigatório informar a propriedade: idempresa", AllowEmptyStrings = false)]
         [Column("idempresa", Order = 3, TypeName = "int")]
-        public int? EmpresaId { get; set; }
+        public int IdEmpresa { get; set; }
 
-        // --- ADICIONE ESTA NOVA PROPRIEDADE AQUI ---
-        [Column("idusuario", Order = 26, TypeName = "integer")]
-        public int? IdUsuario { get; set; }
+        [Required(ErrorMessage = "obrigatório informar a propriedade: idusuario", AllowEmptyStrings = false)]
+        [Column("idusuario", Order = 4, TypeName = "integer")]
+        public int IdUsuario { get; set; } = default!;
 
         [DataType(DataType.Text)]
-        [Required(ErrorMessage = "obrigatório informar a propriedade: descricao_agenda", AllowEmptyStrings = true)]
-        [Column("descricao_agenda", Order = 4, TypeName = "text")]
+        [Required(ErrorMessage = "obrigatório informar a propriedade: descricao", AllowEmptyStrings = true)]
+        [Column("descricao", Order = 5, TypeName = "text")]
         public string Descricao { get; set; } = default!;
-
-        [Column("ccusto_id", Order = 5, TypeName = "int")]
-        public int? CCusto_Id { get; set; }
 
         [DataType(DataType.Text)]
         [MaxLength(255, ErrorMessage = "tamanho máximo 255 caracteres")]
-        [Column("solicitante_agenda", Order = 6, TypeName = "varchar(255)")]
-        public string? Solicitante { get; set; }
+        [Required(ErrorMessage = "obrigatório informar a propriedade: solicitante", AllowEmptyStrings = true)]
+        [Column("solicitante", Order = 6, TypeName = "varchar(255)")]
+        public string? Solicitante { get; set; } = default!;
 
+        [Required(ErrorMessage = "obrigatório informar a propriedade: privado", AllowEmptyStrings = false)]
         [Column("privado", Order = 7, TypeName = "bool")]
-        public bool? Privativa { get; set; } = false;
+        public bool? Privativa { get; set; } = default!;
 
         [DataType(DataType.Text)]
         [MaxLength(100, ErrorMessage = "tamanho máximo 100 caracteres")]
+        [Required(ErrorMessage = "obrigatório informar a propriedade: responsavel", AllowEmptyStrings = false)]
         [Column("responsavel", Order = 8, TypeName = "varchar(100)")]
-        public string? Responsavel { get; set; }
+        public string? Responsavel { get; set; } = default!;
 
         [EmailAddress]
         [MaxLength(255, ErrorMessage = "tamanho máximo 255 caracteres")]
+        [Required(ErrorMessage = "obrigatório informar a propriedade: contato", AllowEmptyStrings = false)]
         [Column("contato", Order = 9, TypeName = "varchar(255)")]
-        public string? Contato { get; set; }
+        public string? Contato { get; set; } = default!;
 
         [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm:ss}", ApplyFormatInEditMode = true)]
-        [Required(ErrorMessage = "obrigatório informar a propriedade: data_hora", AllowEmptyStrings = false)]
-        [Column("data_hora", Order = 10, TypeName = "timestamp without time zone")]
-        public DateTime DataHora { get; set; }
+        [Required(ErrorMessage = "obrigatório informar a propriedade: datacriacao", AllowEmptyStrings = false)]
+        [Column("datacriacao", Order = 10, TypeName = "timestamp without time zone")]
+        public DateTime DataHora { get; set; } = default!;
 
         [DataType(DataType.Text)]
-        [Column("local", Order = 11, TypeName = "varchar(255)")]
-        public string? Local { get; set; }
+        [MaxLength(60, ErrorMessage = "tamanho máximo 60 caracteres")]
+        [Required(ErrorMessage = "obrigatório informar a propriedade: local", AllowEmptyStrings = false)]
+        [Column("local", Order = 11, TypeName = "varchar(60)")]
+        public string? Local { get; set; } = default!;
 
         [DataType(DataType.Text)]
         [MaxLength(100, ErrorMessage = "tamanho máximo 100 caracteres")]
+        [Required(ErrorMessage = "obrigatório informar a propriedade: situacao", AllowEmptyStrings = false)]
         [Column("situacao", Order = 12, TypeName = "varchar(100)")]
-        public string? Situacao { get; set; }
+        public string? Situacao { get; set; } = default!;
 
+        [Required(ErrorMessage = "obrigatório informar a propriedade: status", AllowEmptyStrings = false)]
         [Column("status", Order = 13, TypeName = "bool")]
-        public bool? Status { get; set; } = false;
+        public bool? Status { get; set; } = default!;
 
         [DataType(DataType.Text)]
+        [MaxLength(100, ErrorMessage = "tamanho máximo 100 caracteres")]
+        [Required(ErrorMessage = "obrigatório informar a propriedade: situacao", AllowEmptyStrings = false)]
         [Column("observacao", Order = 14, TypeName = "text")]
-        public string? Observacao { get; set; }
+        public string? Observacao { get; set; } = default!;
 
+        [Required(ErrorMessage = "obrigatório informar a propriedade: historico", AllowEmptyStrings = false)]
         [Column("historico", Order = 15, TypeName = "int")]
-        public int? Historico { get; set; }
+        public int? Historico { get; set; } = default!;
 
         [DataType(DataType.Text)]
         [MaxLength(100, ErrorMessage = "tamanho máximo 100 caracteres")]
+        [Required(ErrorMessage = "obrigatório informar a propriedade: setor", AllowEmptyStrings = false)]
         [Column("setor", Order = 16, TypeName = "varchar(100)")]
-        public string? Setor { get; set; }
+        public string? Setor { get; set; } = default!;
 
         [DataType(DataType.Text)]
         [MaxLength(255, ErrorMessage = "tamanho máximo 255 caracteres")]
+        [Required(ErrorMessage = "obrigatório informar a propriedade: objetivo", AllowEmptyStrings = false)]
         [Column("objetivo", Order = 17, TypeName = "varchar(255)")]
-        public string? Objetivo { get; set; }
-
-        [DataType(DataType.Text)]
-        [MaxLength(255, ErrorMessage = "tamanho máximo 255 caracteres")]
-        [Column("setor_desc", Order = 18, TypeName = "varchar(255)")]
-        public string? SetorDescricao { get; set; }
+        public string? Objetivo { get; set; } = default!;
 
         [DataType(DataType.Text)]
         [MaxLength(100, ErrorMessage = "tamanho máximo 100 caracteres")]
-        [Column("tipo_solicitacao", Order = 19, TypeName = "varchar(100)")]
-        public string? TipoSolicitacao { get; set; }
+        [Required(ErrorMessage = "obrigatório informar a propriedade: objetivo", AllowEmptyStrings = false)]
+        [Column("tipo_solicitacao", Order = 18, TypeName = "varchar(100)")]
+        public string? TipoSolicitacao { get; set; } = default!;
 
         [DataType(DataType.DateTime)]
-        [Column("ag_datahoraini", Order = 20, TypeName = "timestamp without time zone")]
-        public DateTime? AgDatahoraIni { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm:ss}", ApplyFormatInEditMode = true)]
+        [Required(ErrorMessage = "obrigatório informar a propriedade: datahoraini", AllowEmptyStrings = false)]
+        [Column("datahoraini", Order = 19, TypeName = "timestamp without time zone")]
+        public DateTime? DataHoraIni { get; set; } = default!;
 
         [DataType(DataType.Text)]
         [MaxLength(255, ErrorMessage = "tamanho máximo 255 caracteres")]
-        [Column("ag_localizacaoini", Order = 21, TypeName = "varchar(255)")]
-        public string? AgLocalizacaoIni { get; set; }
+        [Required(ErrorMessage = "obrigatório informar a propriedade: localizacaoini", AllowEmptyStrings = false)]
+        [Column("localizacaoini", Order = 20, TypeName = "varchar(255)")]
+        public string? LocalizacaoIni { get; set; } = default!;
 
         [DataType(DataType.Time)]
-        [Column("ag_datahorafim", Order = 22, TypeName = "time without time zone")]
-        public TimeSpan? AgDatahorafim { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm:ss}", ApplyFormatInEditMode = true)]
+        [Required(ErrorMessage = "obrigatório informar a propriedade: datahorafim", AllowEmptyStrings = false)]
+        [Column("datahorafim", Order = 21, TypeName = "time without time zone")]
+        public TimeSpan? datahorafim { get; set; } = default!;
 
         [DataType(DataType.Text)]
         [MaxLength(255, ErrorMessage = "tamanho máximo 255 caracteres")]
-        [Column("ag_localizacaofim", Order = 23, TypeName = "varchar(255)")]
-        public string? AgLocalizacaoFim { get; set; }
+        [Required(ErrorMessage = "obrigatório informar a propriedade: localizacaofim", AllowEmptyStrings = false)]
+        [Column("localizacaofim", Order = 23, TypeName = "varchar(255)")]
+        public string? LocalizacaoFim { get; set; } = default!;
 
         [DataType(DataType.Text)]
-        [Column("ag_laudo", Order = 24, TypeName = "text")]
-        public string? AgLaudo { get; set; }
+        [MaxLength(255, ErrorMessage = "tamanho máximo 255 caracteres")]
+        [Required(ErrorMessage = "obrigatório informar a propriedade: laudo", AllowEmptyStrings = false)]
+        [Column("laudo", Order = 24, TypeName = "text")]
+        public string? Laudo { get; set; } = default!;
 
-        [Column("ag_codstatus", Order = 25, TypeName = "int")]
-        public int? AgCodStatus { get; set; }
+        [DefaultValue(1)]
+        [Required(ErrorMessage = "obrigatório informar a propriedade: status", AllowEmptyStrings = false)]
+        [Column("status", Order = 15, TypeName = "tinyint")]
+        [Range(0, 1, ErrorMessage = "só é pemitido informar 0(zero) ou 1(um)")]
+        public int? status { get; set; } = default!;
 
         [NotMapped]
         [ScaffoldColumn(false)]

@@ -60,17 +60,28 @@ namespace Agenda.Repositorio.Repositorios.Agenda
             return await Task.FromResult(new List<Calendario>()).ConfigureAwait(false);
         }
 
-        public override Task<long> CreateOrUpdate(Calendario entity)
+        public async override Task<long> CreateOrUpdate(Calendario entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var _query = $@"select * from Precisa criar a funcion ( Precisa criar a funcion );";
+                var cn = new SqlSystemConnect(ConnectionString);
+                ID = cn.Query<long>(_query, buffered: true, commandTimeout: 1440).FirstOrDefault();
+                return await Task.FromResult(ID).ConfigureAwait(false);
+            }
+            catch (Exception ex)
+            {
+                ErrorRepositorio = true;
+                MessageError = ex.Message.Traduzir();
+                throw new TratamentoExcecao(MessageError);
+            }
         }
 
         public async Task<RetornoGridPaginado<Calendario>> CarregarGridEnventosCalendario(DataTableSearch search, int start, int draw, int length = 10)
         {
             try
             {
-                //Para criar a proc de carregamento da grid use: exec dbo.geradorproccarregargridpadrao 'atendimento.Campanhas'
-                var _query = string.Format("SELECT * FROM public.ssp_carregargridagendas ({0}, {1}, {2}, {3}, '{4}');", _identidade.IdVendedorLogado, _identidade.IdUsuarioLogado, start, length, (search?.value ?? "")?.Trim().VarcharToSQL());
+                var _query = string.Format("select * from public.ssp_carregargridagendas ({0}, {1}, {2}, {3}, '{4}');", _identidade.IdVendedorLogado, _identidade.IdUsuarioLogado, start, length, (search?.value ?? "")?.Trim().VarcharToSQL());
                 var cn = new SqlSystemConnect(ConnectionString);
                 var _result = cn.Query<Calendario>(_query, buffered: true, commandTimeout: 1440);
 

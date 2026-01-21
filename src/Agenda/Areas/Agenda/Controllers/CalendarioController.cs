@@ -1,4 +1,5 @@
-﻿using Agenda.Aplicacao.Entidades.Agenda;
+﻿using Agenda.Aplicacao.Entidades.Acessos;
+using Agenda.Aplicacao.Entidades.Agenda;
 using Agenda.Controllers;
 using Agenda.Dominio.Entidades.Agenda;
 using Agenda.Dominio.Entidades.DataTablePaginado;
@@ -85,6 +86,37 @@ namespace Agenda.Areas.Agenda.Controllers
                 using var app = new CalendarioAppServicos(base.UserIdentity, base.Configuration, base.Identidade);
                 var _result = Json(await app.CarregarGridEnventosCalendario(search, start, draw, length), new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
                 return await Task.FromResult(_result).ConfigureAwait(false);
+            }
+            catch (TratamentoExcecao e) { return await ResponseJson(ResponseJsonTypes.Error, e.Message); }
+            catch (Exception ex) { return await ResponseJson(ResponseJsonTypes.Error, ex.Message); }
+        }
+
+        public async Task<JsonResult> Editar(long idItem)
+        {
+            try
+            {
+                using var app = new CalendarioAppServicos(base.UserIdentity, base.Configuration, base.Identidade);
+                var _result = await app.GetData(idItem);
+                var _return = await ResponseJson(ResponseJsonTypes.Success, "", _result.FirstOrDefault()).ConfigureAwait(false);
+
+                return await Task.FromResult(_return).ConfigureAwait(false);
+            }
+            catch (TratamentoExcecao e) { return await ResponseJson(ResponseJsonTypes.Error, e.Message); }
+            catch (Exception ex) { return await ResponseJson(ResponseJsonTypes.Error, ex.Message); }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<JsonResult> Excluir(long idItem)
+        {
+            try
+            {
+                using var app = new CalendarioAppServicos(base.UserIdentity, base.Configuration, base.Identidade);
+                var _result = await app.Delete(idItem);
+                var _type = !app.ErrorRepositorio ? ResponseJsonTypes.Success : ResponseJsonTypes.Error;
+                var _return = await ResponseJson(_type, app.MessageError, _result).ConfigureAwait(false);
+
+                return await Task.FromResult(_return).ConfigureAwait(false);
             }
             catch (TratamentoExcecao e) { return await ResponseJson(ResponseJsonTypes.Error, e.Message); }
             catch (Exception ex) { return await ResponseJson(ResponseJsonTypes.Error, ex.Message); }
