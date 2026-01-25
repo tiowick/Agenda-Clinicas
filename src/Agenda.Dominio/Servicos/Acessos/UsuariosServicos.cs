@@ -5,7 +5,6 @@ using Agenda.Dominio.Interfaces.Repositorio.Acessos;
 using Agenda.Dominio.Interfaces.Servicos.Acessos;
 using Controle_Agenda.Dominio.Interfaces.Autenticacao;
 using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;

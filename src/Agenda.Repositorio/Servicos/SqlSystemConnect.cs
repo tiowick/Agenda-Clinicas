@@ -3,10 +3,8 @@ using Dapper;
 using Npgsql;
 using System.Data;
 
-// Removido namespace CRM_Repositorio.Servico para bater com o BaseRepositorio
 namespace Agenda.Repositorio.Servicos
 {
-    // <--- MUDANÇA: Removido IDisposable, não é mais necessário
     public class SqlSystemConnect
     {
         private readonly string _connectionString = default!;
@@ -18,16 +16,11 @@ namespace Agenda.Repositorio.Servicos
 
             _connectionString = connectionString;
         }
-
-        // Método de validação simplificado
         private bool ValidateStringConnection()
         {
-            // A validação real já foi feita no construtor
-            // Se precisar de mais lógica, pode adicionar aqui.
             return !string.IsNullOrWhiteSpace(_connectionString);
         }
 
-        // MUDANÇA: Método síncrono corrigido para usar 'using'
         public void Execute(string queryCommand, int commandTimeout = 1440)
         {
             try
@@ -41,12 +34,9 @@ namespace Agenda.Repositorio.Servicos
                 using var connection = new NpgsqlConnection(_connectionString);
                 connection.Execute(queryCommand, commandTimeout: commandTimeout);
             }
-            // <--- MUDANÇA: Captura NpgsqlException
             catch (NpgsqlException ex) { throw new TratamentoExcecao(ex.Message); }
             catch (Exception ex) { throw new TratamentoExcecao(ex.Message); }
         }
-
-        // MUDANÇA: Método síncrono corrigido para usar 'using'
         public IEnumerable<TEntity> Query<TEntity>(string queryCommand, bool buffered = true, int commandTimeout = 1440)
         {
             try
@@ -56,15 +46,12 @@ namespace Agenda.Repositorio.Servicos
 
                 queryCommand ??= "";
 
-                // <--- MUDANÇA: Conexão criada e descartada localmente
                 using var connection = new NpgsqlConnection(_connectionString);
                 return connection.Query<TEntity>(queryCommand, commandTimeout: commandTimeout);
             }
             catch (NpgsqlException ex) { throw new TratamentoExcecao(ex.Message); }
             catch (Exception ex) { throw new TratamentoExcecao(ex.Message); }
         }
-
-        // MUDANÇA: Corrigido para usar 'await using'
         public async Task<IEnumerable<TEntity>> QueryAsync<TEntity>(string queryCommand, int commandTimeout = 1440)
         {
             try
@@ -73,8 +60,6 @@ namespace Agenda.Repositorio.Servicos
                     throw new Exception("String de conexão inválida.");
 
                 queryCommand ??= "";
-
-                // <--- MUDANÇA: Conexão assíncrona criada e descartada localmente
                 await using var connection = new NpgsqlConnection(_connectionString);
                 return await connection.QueryAsync<TEntity>(queryCommand, commandTimeout: commandTimeout).ConfigureAwait(true);
             }
@@ -98,8 +83,6 @@ namespace Agenda.Repositorio.Servicos
             catch (NpgsqlException ex) { throw new TratamentoExcecao(ex.Message); }
             catch (Exception ex) { throw new TratamentoExcecao(ex.Message); }
         }
-
-        // Este método já estava quase correto, só troquei a Conexão
         public async Task<IEnumerable<TEntity>> QueryComParametrosAsync<TEntity>(string queryCommand, object param, CommandType commandType = CommandType.Text, int commandTimeout = 1440)
         {
             try
@@ -124,7 +107,7 @@ namespace Agenda.Repositorio.Servicos
         }
 
         // MUDANÇA: Corrigido para usar 'await using'
-        internal async Task<T> QuerySingleOrDefaultAsync<T>(string query, object param = null, CommandType commandType = CommandType.Text, int commandTimeout = 1440)
+        internal async Task<T> QuerySingleOrDefaultAsync<T>(string query, object? param = null, CommandType commandType = CommandType.Text, int commandTimeout = 1440)
         {
             if (string.IsNullOrEmpty(query))
                 throw new ArgumentException("O comando SQL não pode ser nulo ou vazio.", nameof(query));
@@ -142,11 +125,5 @@ namespace Agenda.Repositorio.Servicos
             catch (NpgsqlException ex) { throw new TratamentoExcecao($"Erro ao executar a consulta: {ex.Message}"); }
             catch (Exception ex) { throw new TratamentoExcecao($"Erro desconhecido: {ex.Message}"); }
         }
-
-        // Removi os métodos duplicados (Query2, QueryAsync2) e o ExecuteCommandNonQuery (que era para SqlServer)
-        // Removi o Dispose(), pois a classe não gerencia mais a conexão.
-
-
-
     }
 }

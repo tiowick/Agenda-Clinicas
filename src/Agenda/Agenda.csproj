@@ -115,6 +115,7 @@
   <ItemGroup>
     <Folder Include="Areas\Acessos\Views\Shared\" />
     <Folder Include="Areas\Basico\Views\Shared\" />
+    <Folder Include="Areas\Solicitacoes\Views\Shared\" />
     <Folder Include="wwwroot\assets\libs\bootstrap-filestyle2\src\" />
     <Folder Include="wwwroot\assets\libs\bootstrap-filestyle2\test\" />
     <Folder Include="wwwroot\assets\libs\chart.js\controllers\" />

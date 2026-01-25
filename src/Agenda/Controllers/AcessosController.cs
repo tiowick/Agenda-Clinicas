@@ -44,7 +44,7 @@ namespace Gestao_Winsiga.Apresentacao.Controllers
 
                 var user = await _userManager.FindByEmailAsync(email) ?? await _userManager.FindByNameAsync(email);
                 if (user == null){ return Json(new { success = false, message = "Usuário ou senha inválidos." }); }
-                var result = await _signInManager.PasswordSignInAsync(user.UserName, password, isPersistent: true, lockoutOnFailure: false);
+                var result = await _signInManager.PasswordSignInAsync(user.UserName ?? "", password, isPersistent: true, lockoutOnFailure: false);
 
                 if (result.Succeeded)
                 {
@@ -53,8 +53,8 @@ namespace Gestao_Winsiga.Apresentacao.Controllers
 
                     var claims = new List<Claim>
                     {
-                        new Claim(ClaimTypes.Name, user.UserName),
-                        new Claim(ClaimTypes.Email, user.Email),
+                        new Claim(ClaimTypes.Name, user.UserName ?? ""),
+                        new Claim(ClaimTypes.Email, user.Email ?? ""),
                        
                     };
 

@@ -1,5 +1,4 @@
-﻿using Agenda.Infra.Padronizar.Texto;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;

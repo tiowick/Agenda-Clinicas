@@ -1,6 +1,7 @@
 ﻿using Agenda.Dominio;
 using Agenda.Dominio.Entidades.Agenda;
 using Agenda.Dominio.Entidades.DataTablePaginado;
+using Agenda.Dominio.Entidades.DTO;
 using Agenda.Dominio.Entidades.DTOS;
 using Agenda.Dominio.Enuns;
 using Agenda.Dominio.Interfaces.Repositorio.Agenda;
@@ -107,7 +108,65 @@ namespace Agenda.Repositorio.Repositorios.Agenda
             }
         }
 
+        public async Task<IEnumerable<DataSelect2DTO>> CarregarComboStatus(string search, int page, int? length = 10)
+        {
+            try
+            {
+                var _page = ((page <= 0 ? 1 : page) - 1) * 10;
+                var _length = (length ?? 10);
+                var _query = string.Format("exec precisa_criar_funcion {0}, {1}, {2}, {3}, '{4}';", _identidade.IdEmpresaLogado, _identidade.IdUsuarioLogado, _page, _length, (search ?? "")?.Trim().VarcharToSQL());
+                var cn = new SqlSystemConnect(ConnectionString);
+                var _result = cn.Query<DataSelect2DTO>(_query, buffered: true, commandTimeout: 1440);
 
+                return await Task.FromResult(_result).ConfigureAwait(false);
+            }
+            catch (Exception ex)
+            {
+                ErrorRepositorio = true;
+                MessageError = ex.Message.Traduzir();
+                throw new TratamentoExcecao(MessageError);
+            }
+        }
+
+        public async Task<IEnumerable<DataSelect2DTO>> CarregarComboTipoSolitacao(string search, int page, int? length = 10)
+        {
+            try
+            {
+                var _page = ((page <= 0 ? 1 : page) - 1) * 10;
+                var _length = (length ?? 10);
+                var _query = string.Format("exec precisa_criar_funcion {0}, {1}, {2}, {3}, '{4}';", _identidade.IdEmpresaLogado, _identidade.IdUsuarioLogado, _page, _length, (search ?? "")?.Trim().VarcharToSQL());
+                var cn = new SqlSystemConnect(ConnectionString);
+                var _result = cn.Query<DataSelect2DTO>(_query, buffered: true, commandTimeout: 1440);
+
+                return await Task.FromResult(_result).ConfigureAwait(false);
+            }
+            catch (Exception ex)
+            {
+                ErrorRepositorio = true;
+                MessageError = ex.Message.Traduzir();
+                throw new TratamentoExcecao(MessageError);
+            }
+        }
+
+        public async Task<IEnumerable<DataSelect2DTO>> CarregarComboEmpresas(string search, int page, int? length = 10)
+        {
+            try
+            {
+                var _page = ((page <= 0 ? 1 : page) - 1) * 10;
+                var _length = (length ?? 10);
+                var _query = string.Format("exec precisa_criar_funcion {0}, {1}, {2}, {3}, '{4}';", _identidade.IdEmpresaLogado, _identidade.IdUsuarioLogado, _page, _length, (search ?? "")?.Trim().VarcharToSQL());
+                var cn = new SqlSystemConnect(ConnectionString);
+                var _result = cn.Query<DataSelect2DTO>(_query, buffered: true, commandTimeout: 1440);
+
+                return await Task.FromResult(_result).ConfigureAwait(false);
+            }
+            catch (Exception ex)
+            {
+                ErrorRepositorio = true;
+                MessageError = ex.Message.Traduzir();
+                throw new TratamentoExcecao(MessageError);
+            }
+        }
     }
 }
 

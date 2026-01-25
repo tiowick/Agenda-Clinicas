@@ -1,11 +1,13 @@
 ﻿using Agenda.Dominio.Entidades.Agenda;
 using Agenda.Dominio.Entidades.DataTablePaginado;
+using Agenda.Dominio.Entidades.DTO;
 using Agenda.Dominio.Entidades.DTOS;
 using Agenda.Dominio.Interfaces.Repositorio.Agenda;
 using Agenda.Dominio.Interfaces.Servicos.Agenda;
 using Controle_Agenda.Dominio.Interfaces.Autenticacao;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -37,7 +39,28 @@ namespace Agenda.Dominio.Servicos.Agenda
             MessageError = _repositorio.MessageError;
             return _result;
         }
+        public async Task<IEnumerable<DataSelect2DTO>> CarregarComboStatus(string search, int page, int? length = 10)
+        {
+            var _result = await _repositorio.CarregarComboStatus(search, page, length).ConfigureAwait(true);
+            ErrorRepositorio = _repositorio.ErrorRepositorio;
+            MessageError = _repositorio.MessageError;
+            return _result;
+        }
 
+        public async Task<IEnumerable<DataSelect2DTO>> CarregarComboTipoSolitacao(string search, int page, int? length = 10)
+        {
+            var _result = await _repositorio.CarregarComboTipoSolitacao(search, page, length).ConfigureAwait(true);
+            ErrorRepositorio = _repositorio.ErrorRepositorio;
+            MessageError = _repositorio.MessageError;
+            return _result;
+        }
 
+        public async Task<IEnumerable<DataSelect2DTO>> CarregarComboEmpresas(string search, int page, int? length = 10)
+        {
+            var _result = await _repositorio.CarregarComboEmpresas(search, page, length).ConfigureAwait(true);
+            ErrorRepositorio = _repositorio.ErrorRepositorio;
+            MessageError = _repositorio.MessageError;
+            return _result; ;
+        }
     }
 }

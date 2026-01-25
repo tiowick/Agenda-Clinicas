@@ -91,6 +91,58 @@ namespace Agenda.Areas.Agenda.Controllers
             catch (Exception ex) { return await ResponseJson(ResponseJsonTypes.Error, ex.Message); }
         }
 
+        [HttpGet]
+        public async Task<JsonResult> CarregarComboStatus(string? search, int? page)
+        {
+            try
+            {
+                var _page = page ?? 1;
+                using var app = new CalendarioAppServicos(base.UserIdentity, base.Configuration, base.Identidade);
+                var _result = await app.CarregarComboStatus(search ?? "", _page);
+                var _type = !app.ErrorRepositorio ? ResponseJsonTypes.Success : ResponseJsonTypes.Error;
+                var _return = await ResponseJson(_type, app.MessageError, _result, _result.Count()).ConfigureAwait(false);
+
+                return await Task.FromResult(_return).ConfigureAwait(false);
+            }
+            catch (TratamentoExcecao e) { return await ResponseJson(ResponseJsonTypes.Error, e.Message); }
+            catch (Exception ex) { return await ResponseJson(ResponseJsonTypes.Error, ex.Message); }
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> CarregarComboTipoSolitacao(string? search, int? page)
+        {
+            try
+            {
+                var _page = page ?? 1;
+                using var app = new CalendarioAppServicos(base.UserIdentity, base.Configuration, base.Identidade);
+                var _result = await app.CarregarComboTipoSolitacao(search ?? "", _page);
+                var _type = !app.ErrorRepositorio ? ResponseJsonTypes.Success : ResponseJsonTypes.Error;
+                var _return = await ResponseJson(_type, app.MessageError, _result, _result.Count()).ConfigureAwait(false);
+
+                return await Task.FromResult(_return).ConfigureAwait(false);
+            }
+            catch (TratamentoExcecao e) { return await ResponseJson(ResponseJsonTypes.Error, e.Message); }
+            catch (Exception ex) { return await ResponseJson(ResponseJsonTypes.Error, ex.Message); }
+        }
+
+
+        [HttpGet]
+        public async Task<JsonResult> CarregarComboEmpresas(string? search, int? page)
+        {
+            try
+            {
+                var _page = page ?? 1;
+                using var app = new CalendarioAppServicos(base.UserIdentity, base.Configuration, base.Identidade);
+                var _result = await app.CarregarComboEmpresas(search ?? "", _page);
+                var _type = !app.ErrorRepositorio ? ResponseJsonTypes.Success : ResponseJsonTypes.Error;
+                var _return = await ResponseJson(_type, app.MessageError, _result, _result.Count()).ConfigureAwait(false);
+
+                return await Task.FromResult(_return).ConfigureAwait(false);
+            }
+            catch (TratamentoExcecao e) { return await ResponseJson(ResponseJsonTypes.Error, e.Message); }
+            catch (Exception ex) { return await ResponseJson(ResponseJsonTypes.Error, ex.Message); }
+        }
+
         public async Task<JsonResult> Editar(long idItem)
         {
             try
