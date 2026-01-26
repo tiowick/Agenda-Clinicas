@@ -1,16 +1,13 @@
-﻿@{
+﻿@using Agenda.AppHelpers
+@using Agenda.AbstractFactory
+
+@{
     ViewBag.Title = "TUI Calendar";
     ViewBag.pTitle = "TUI Calendar";
     ViewBag.pageTitle = "Calendar";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     await Html.RenderPartialAsync("../Shared/Parts/_CarregarAgendaIniciada.cshtml");
-}
-
-@section styles {
-    <link rel="stylesheet" type="text/css" href="~/assets/libs/tui-time-picker/tui-time-picker.min.css">
-    <link rel="stylesheet" type="text/css" href="~/assets/libs/tui-date-picker/tui-date-picker.min.css">
-    <link href="~/assets/libs/tui-calendar/tui-calendar.min.css" rel="stylesheet" type="text/css" />
 }
 
 <div class="row">
@@ -120,25 +117,4 @@
         </div>
     </div>
 </div>
-<!-- end row -->
-@section scripts {
-    <script src="https://uicdn.toast.com/tui.code-snippet/latest/tui-code-snippet.min.js"></script>
-    <script src="~/assets/libs/tui-dom/tui-dom.min.js"></script>
 
-    <script src="~/assets/libs/tui-time-picker/tui-time-picker.min.js"></script>
-    <script src="~/assets/libs/tui-date-picker/tui-date-picker.min.js"></script>
-
-    <script src="~/assets/libs//moment/min/moment.min.js"></script>
-    <script src="~/assets/libs/chance/chance.min.js"></script>
-
-    <script src="~/assets/libs/tui-calendar/tui-calendar.min.js"></script>
-
-    <script src="~/assets/js/pages/calendars.js"></script>
-    <script src="~/assets/js/pages/schedules.js"></script>
-    <script src="~/assets/js/pages/calendar.init.js"></script>
-
-    <!-- App js -->
-    <script src="~/assets/js/app.js"></script>
-
-
-}

@@ -6,76 +6,134 @@
 <html lang="pt-BR">
 <head>
     @await Html.PartialAsync("~/Views/Shared/_title_meta.cshtml")
-    @RenderSection("styles", required: false)
+
+    @* ================================================================================= *@
+    @* [ZONA 1] ESTILOS (CSS) -> SEMPRE NO TOPO                                        *@
+    @* Motivo: O navegador precisa saber as cores e tamanhos ANTES de desenhar a tela.   *@
+    @* Se carregar no fim, a tela "pisca" toda desarrumada antes de ficar bonita.        *@
+    @* ================================================================================= *@
+
+    @* 1.1 CSS Essencial do Template (Carregado via Partial para organização) *@
     @await Html.PartialAsync("~/Views/Shared/_head_css.cshtml")
+
+    @* 1.2 CSS de Plugins (Bibliotecas de Terceiros) *@
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
-    <link href="~/assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css">
-    <link href="~/assets/libs/spectrum-colorpicker2/spectrum.min.css" rel="stylesheet" type="text/css">
-    <link href="~/assets/libs/bootstrap-timepicker/css/bootstrap-timepicker.min.css" rel="stylesheet" type="text/css">
-    <link href="~/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet" type="text/css" />
+
+    @* 1.3 CSS de Componentes Bootstrap (Inputs de data, cor, hora) *@
+    <link href="~/assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet">
+    <link href="~/assets/libs/spectrum-colorpicker2/spectrum.min.css" rel="stylesheet">
+    <link href="~/assets/libs/bootstrap-timepicker/css/bootstrap-timepicker.min.css" rel="stylesheet">
+    <link href="~/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet">
     <link rel="stylesheet" href="~/assets/libs/@("@chenfengyuan")/datepicker/datepicker.min.css">
-    @* <link rel="stylesheet" href="~/css/setorcustom.css"> *@
+
+    @* 1.4 CSS dos Calendários (TUI e FullCalendar) *@
+    @* Precisam estar aqui para que a div do calendário já nasça com o tamanho certo *@
+    <link rel="stylesheet" type="text/css" href="~/assets/libs/tui-time-picker/tui-time-picker.min.css">
+    <link rel="stylesheet" type="text/css" href="~/assets/libs/tui-date-picker/tui-date-picker.min.css">
+    <link href="~/assets/libs/tui-calendar/tui-calendar.min.css" rel="stylesheet" type="text/css" />
+
+    @* 1.5 SEUS CSS CUSTOMIZADOS *@
+    @* Sempre por último para ter prioridade e sobrescrever o padrão se necessário *@
     <link rel="stylesheet" href="~/vendor/css/pages/page-auth.css" />
-    @* <link rel="stylesheet" href="~/css/gridcustom_mobile.css" /> *@
+    <link rel="stylesheet" href="~/css/calendario-custom.css">
+    <link rel="stylesheet" href="~/css/legendas.css">
+    <script src="~/js/ui-toasts.js"></script>
+
+
+    @* ================================================================================= *@
+    @* [ZONA 2] BIBLIOTECAS JS (AS FERRAMENTAS) -> NO HEAD                             *@
+    @* Motivo: Esta é a chave para NÃO usar @Sections nas Views.                         *@
+    @* Ao carregar jQuery e Libs aqui, elas já existem na memória quando a View renderiza. *@
+    @* Isso permite colocar <script>$('.btn').click()</script> no meio da View sem erro. *@
+    @* ================================================================================= *@
+
+    @* 2.1 O NÚCLEO (jQuery TEM que ser o primeiro script da página) *@
+    <script src="~/assets/libs/jquery/jquery.min.js"></script>
+
+    @* 2.2 Framework Visual (Bootstrap, Menus, Barras) *@
+    <script src="~/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/assets/libs/metismenu/metisMenu.min.js"></script>
+    <script src="~/assets/libs/simplebar/simplebar.min.js"></script>
+    <script src="~/assets/libs/node-waves/waves.min.js"></script>
+
+    @* 2.3 Utilitários Globais (Moment.js é obrigatório para calendários) *@
+    <script src="~/assets/libs/moment/min/moment.min.js"></script>
+    <script src="~/assets/libs/jquery-ui-dist/jquery-ui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
+    <script src="~/assets/libs/tinymce/tinymce.min.js"></script>
+
+    @* 2.4 CÓDIGO FONTE DOS CALENDÁRIOS (A Lógica, não a Inicialização) *@
+    @* Carregamos a biblioteca TUI aqui para ela estar disponível globalmente *@
+    <script src="https://uicdn.toast.com/tui.code-snippet/latest/tui-code-snippet.min.js"></script>
+    <script src="~/assets/libs/tui-dom/tui-dom.min.js"></script>
+    <script src="~/assets/libs/tui-time-picker/tui-time-picker.min.js"></script>
+    <script src="~/assets/libs/tui-date-picker/tui-date-picker.min.js"></script>
+    <script src="~/assets/libs/chance/chance.min.js"></script>
+    <script src="~/assets/libs/tui-calendar/tui-calendar.min.js"></script>
+
+    @* 2.5 FullCalendar (Se ainda estiver usando) *@
+    <script src="~/assets/libs/fullcalendar/index.global.min.js"></script>
+    <script src='https://cdn.jsdelivr.net/npm/@("@")fullcalendar/core@6.1.8/locales-all.global.min.js'></script>
+
+    @* 2.6 Scripts de Validação e Helpers *@
+    <script src="~/lib/jquery-ajax-unobtrusive-main/src/jquery.unobtrusive-ajax.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    <script src="~/js/jquery.validate.pt-br.js"></script>
+    <script src="~/js/validation.js"></script>
+    <script src="~/assets/js/plugin.js"></script>
+
 
 </head>
+
 <body data-sidebar="dark">
+
+    @* ================================================================================= *@
+    @* [ZONA 3] A OBRA (HTML ESTRUTURAL)                                               *@
+    @* Aqui desenhamos o site. Nenhuma lógica roda aqui, apenas estrutura HTML.          *@
+    @* ================================================================================= *@
     <div id="layout-wrapper">
         @await Html.PartialAsync("~/Views/Shared/_topbar.cshtml")
         @await Html.PartialAsync("~/Views/Shared/_sidebar.cshtml")
+
         <div class="main-content">
             <div class="page-content">
                 <div class="container-fluid">
                     @await Html.PartialAsync("~/Views/Shared/_page_title.cshtml")
+
+                    @* AQUI ENTRA A SUA VIEW (Index.cshtml) *@
+                    @* O RenderBody joga o HTML da view aqui dentro. *@
+                    @* Como os Scripts já foram carregados no HEAD, a View pode usar eles imediatamente. *@
                     @RenderBody()
+
                 </div>
             </div>
-            @* @await Html.PartialAsync("~/Views/Shared/_footer.cshtml") *@
         </div>
     </div>
+
     @RenderSection("externalhtml", required: false)
     @await Html.PartialAsync("~/Views/Shared/_right_sidebar.cshtml")
 
-    <!-- Scripts -->
-    @await Html.PartialAsync("~/Views/Shared/_vendor_scripts.cshtml")
-    <script src="~/lib/jquery-ajax-unobtrusive-main/src/jquery.unobtrusive-ajax.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    @* <!-- plugin js -->
-    <script src="~/assets/libs/moment/min/moment.min.js"></script>
-    <script src="~/assets/libs/jquery-ui-dist/jquery-ui.min.js"></script>
-    <script src="~/assets/libs/fullcalendar/index.global.min.js"></script>
-    <script src='https://cdn.jsdelivr.net/npm/@("@")fullcalendar/core@6.1.8/locales-all.global.min.js'></script>
+    @* ================================================================================= *@
+    @* [ZONA 4] OS OPERÁRIOS (SCRIPTS DE EXECUÇÃO) -> RODAPÉ                           *@
+    @* Motivo: Estes scripts procuram elementos HTML para funcionar.                     *@
+    @* Se rodarem no HEAD, eles falham porque o HTML (ZONA 3) ainda não existe.          *@
+    @* ================================================================================= *@
 
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script src="https://cdn.tiny.cloud/1/yyw07qr7krzzjum64boblk217puzgn53k0peejrln79fci8x/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css"> *@
-
-    <!-- SweetAlert2 JS -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <!-- Calendar init -->
-    @* <script src="~/assets/js/pages/calendars-full.init.js"></script> *@
-
-    <!--tinymce js-->
-    <script src="~/assets/libs/tinymce/tinymce.min.js"></script>
-    <script src="~/js/jquery.validate.pt-br.js"></script>
-    @* <script src="~/js/DataGrid.js"></script> *@
-    @* <script src="~/js/ui-toasts.js"></script> *@
-    <script src="~/js/validation.js"></script>
-    <script src="~/assets/js/plugin.js"></script>
+    @* 4.1 Lógica do Layout (Menu, Sidebar, Dark Mode) *@
+    @* Só roda depois que o layout-wrapper foi desenhado *@
     <script src="~/assets/js/app.js"></script>
 
-    @RenderSection("scripts", required: false)
-
+    @* 4.2 Inicialização GLOBAL de Calendários *@
+    @* Este script procura a <div id="calendar">. Por isso ele tem que ser o ÚLTIMO. *@
+    @* Se a página não tiver a div, ele pode dar erro no console (trate isso no JS se precisar) *@
+    <script src="~/assets/js/pages/calendars-full.init.js"></script>
+    <script src="~/assets/js/pages/calendar.init.js"></script>
 
 </body>
 </html>

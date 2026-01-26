@@ -1,0 +1,46 @@
+﻿.badge {
+    font-size: 0.85rem;
+    transition: transform 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+    .badge:hover {
+        transform: scale(1.05);
+        cursor: default;
+    }
+
+.legend-toggle-btn {
+    animation: pulse-border 2.5s infinite;
+}
+
+@keyframes pulse-border {
+    0% {
+        box-shadow: 0 0 0 0 rgba(23, 162, 184, 0.7);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgba(23, 162, 184, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(23, 162, 184, 0);
+    }
+}
+
+.status-legend-list {
+    margin-top: 10px;
+}
+
+.status-legend-item {
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.status-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    margin-right: 10px;
+    border: 1px solid rgba(0,0,0,0.1);
+}

@@ -8,10 +8,7 @@
     ViewBag.pageTitle = "Calendario";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
-    // await Html.RenderPartialAsync("../Shared/_CarregarAgendaIniciada.cshtml");
-    // await Html.RenderPartialAsync("../Shared/_CarregarSolicitacoesAgenda.cshtml");
     await Html.RenderPartialAsync("../Shared/_CriacaoAgenda.cshtml");
-
 }
 
 <div class="row">
@@ -33,9 +30,8 @@
             <div class="col-lg-4 col-xl-3 order-2 order-lg-1">
                 <div class="card">
                     <div class="card-body">
-
                         <div class="d-grid px-4">
-                            <button class="btn font-12 btn-primary CriarEnvento" id="btn-new-event" data-bs-toggle="modal" data-bs-target="#modalCriacaoAgenda">Criar Evento</button>
+                            <button class="btn font-12 btn-primary CriarEnvento" id="btn-new-event" data-bs-toggle="modal" data-bs-target="#modalCriacaoAgenda">Criar Agendamento</button>
                         </div>
 
                         <div class="d-grid px-4 mt-3 d-lg-none">
@@ -59,92 +55,20 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
-
         <div style='clear:both'></div>
-
     </div>
 </div>
-@section Styles {
-    <link rel="stylesheet" type="text/css" href="~/assets/libs/tui-time-picker/tui-time-picker.min.css">
-    <link rel="stylesheet" type="text/css" href="~/assets/libs/tui-date-picker/tui-date-picker.min.css">
-    <link href="~/assets/libs/tui-calendar/tui-calendar.min.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="~/css/calendario-custom.css">
 
-    <style>
-        .badge {
-            font-size: 0.85rem;
-            transition: transform 0.2s ease;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
+<script type="text/javascript">
+    // Como jQuery já carregou no HEAD, isso aqui roda liso
+    $(document).ready(function() {
+        console.log("Layout centralizado funcionando!");
 
-            .badge:hover {
-                transform: scale(1.05);
-                cursor: default;
-            }
-
-        /* Animação para o botão da legenda em mobile */
-        .legend-toggle-btn {
-            animation: pulse-border 2.5s infinite;
-        }
-
-        @@keyframes pulse-border {
-            0% {
-                box-shadow: 0 0 0 0 rgba(23, 162, 184, 0.7);
-            }
-
-            70% {
-                box-shadow: 0 0 0 10px rgba(23, 162, 184, 0);
-            }
-
-            100% {
-                box-shadow: 0 0 0 0 rgba(23, 162, 184, 0);
-            }
-        }
-
-        /* Estilos para a lista da legenda */
-        .status-legend-list {
-            margin-top: 10px;
-        }
-
-        .status-legend-item {
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-        }
-
-        .status-dot {
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            margin-right: 10px;
-            border: 1px solid rgba(0,0,0,0.1);
-        }
-    </style>
-}
-
-
-
-
-@section scripts
-{
-    <script src="~/assets/libs/moment/min/moment.min.js"></script>
-    <script src="~/assets/libs/jquery-ui-dist/jquery-ui.min.js"></script>
-    <script src="~/assets/libs/fullcalendar/index.global.min.js"></script>
-    <script src='https://cdn.jsdelivr.net/npm/@("@")fullcalendar/core@6.1.8/locales-all.global.min.js'></script>
-
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script src="https://cdn.tiny.cloud/1/yyw07qr7krzzjum64boblk217puzgn53k0peejrln79fci8x/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="~/assets/js/pages/calendars-full.init.js"></script>
-
-
-}
+        // Exemplo: Inicializar Select2 se precisar manualmente
+        $('.select2').select2();
+    });
+</script>

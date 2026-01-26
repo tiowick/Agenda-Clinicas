@@ -6,14 +6,6 @@
     Layout = "~/Views/Shared/_BlankLayout.cshtml";
 }
 
-@section styles {
-    <!-- DataTables -->
-    <link href="~/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
-    <link href="~/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
-
-    <!-- Responsive datatable examples -->
-    <link href="~/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
-}
 
 <!-- Container com fundo e overlay -->
 <div style="background: url('@Url.Content("~/assets/images/home-office-fundo.jpg")') no-repeat center center fixed; background-size: cover; position: relative; min-height: 100vh;">
@@ -78,62 +70,59 @@
         </div>
     </div>
 </div>
-@section scripts {
-    <script src="~/assets/js/app.js"></script>
-    <script src="~/js/ui-toasts.js"></script>
 
-    <script>
-        // Alterna visibilidade da senha
-        document.getElementById('togglePassword')
-            .addEventListener('click', function() {
-                const pwd = document.getElementById('Senha');
-                const type = pwd.type === 'password' ? 'text' : 'password';
-                pwd.type = type;
-                this.querySelector('i').classList.toggle('mdi-eye-outline');
-                this.querySelector('i').classList.toggle('mdi-eye-off-outline');
-            });
 
-        // ===== LÓGICA DE SUBMISSÃO COM AJAX =====
-        $(document).ready(function() {
-            $('#loginForm').on('submit', function(e) {
-                e.preventDefault(); // Impede o envio padrão do formulário
+<script type="text/javascript">
+    // Alterna visibilidade da senha
+    document.getElementById('togglePassword')
+        .addEventListener('click', function() {
+            const pwd = document.getElementById('Senha');
+            const type = pwd.type === 'password' ? 'text' : 'password';
+            pwd.type = type;
+            this.querySelector('i').classList.toggle('mdi-eye-outline');
+            this.querySelector('i').classList.toggle('mdi-eye-off-outline');
+        });
 
-                var form = $(this);
-                var submitButton = form.find('button[type="submit"]');
-                var originalButtonText = submitButton.html();
+    // ===== LÓGICA DE SUBMISSÃO COM AJAX =====
+    $(document).ready(function() {
+        $('#loginForm').on('submit', function(e) {
+            e.preventDefault(); // Impede o envio padrão do formulário
 
-                // Validação simples
-                if ($('#Email').val() === '' || $('#Senha').val() === '') {
-                    showToastBootstrap('Por favor, preencha o usuário e a senha.', 'warning');
-                    return;
-                }
+            var form = $(this);
+            var submitButton = form.find('button[type="submit"]');
+            var originalButtonText = submitButton.html();
 
-                // Desabilita o botão e mostra um spinner
-                submitButton.prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Entrando...');
+            // Validação simples
+            if ($('#Email').val() === '' || $('#Senha').val() === '') {
+                showToastBootstrap('Por favor, preencha o usuário e a senha.', 'warning');
+                return;
+            }
 
-                $.ajax({
-                    type: 'POST',
-                    url: form.attr('action'),
-                    data: form.serialize(),
-                    success: function(response) {
-                        if (response.success) {
-                            // Sucesso, redireciona para a página principal
-                            window.location.href = response.redirectUrl;
-                        } else {
-                            // Falha, mostra a notificação de erro
-                            showToastBootstrap(response.message, 'danger');
-                        }
-                    },
-                    error: function() {
-                        // Erro de comunicação
-                        showToastBootstrap('Ocorreu uma falha de comunicação. Verifique sua conexão e tente novamente.', 'danger');
-                    },
-                    complete: function() {
-                        // Reabilita o botão e restaura o texto original
-                        submitButton.prop('disabled', false).html(originalButtonText);
+            // Desabilita o botão e mostra um spinner
+            submitButton.prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Entrando...');
+
+            $.ajax({
+                type: 'POST',
+                url: form.attr('action'),
+                data: form.serialize(),
+                success: function(response) {
+                    if (response.success) {
+                        // Sucesso, redireciona para a página principal
+                        window.location.href = response.redirectUrl;
+                    } else {
+                        // Falha, mostra a notificação de erro
+                        showToastBootstrap(response.message, 'danger');
                     }
-                });
+                },
+                error: function() {
+                    // Erro de comunicação
+                    showToastBootstrap('Ocorreu uma falha de comunicação. Verifique sua conexão e tente novamente.', 'danger');
+                },
+                complete: function() {
+                    // Reabilita o botão e restaura o texto original
+                    submitButton.prop('disabled', false).html(originalButtonText);
+                }
             });
         });
-    </script>
-}
+    });
+</script>
