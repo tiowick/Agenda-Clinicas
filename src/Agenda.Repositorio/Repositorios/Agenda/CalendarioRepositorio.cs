@@ -65,7 +65,30 @@ namespace Agenda.Repositorio.Repositorios.Agenda
         {
             try
             {
-                var _query = $@"select * from Precisa criar a funcion ( Precisa criar a funcion );";
+                var _query = $@"select * from public.ssp_alteraragenda(
+                     {entity.ID}
+                   , {Identidade.IdUsuarioLogado}
+                   , {Identidade.IdEmpresaLogado}
+                   , {Identidade.IdVendedorLogado}
+                   , {entity.IdLaudo ?? 0} 
+                   , {entity.IdSetor ?? 0} 
+                   , {entity.IdResponsavel ?? 0}
+                   , {entity.IdSituacao ?? 0}
+                   , {entity.IdSolicitacao ?? 0}
+                   , {entity.status ?? 0}
+                   , '{entity.Descricao.VarcharToSQL()}'
+                   , '{entity.Solicitante?.VarcharToSQL() ?? ""}'
+                   , {(entity.Privativa == true ? "true" : "false")}
+                   , '{entity.Contato?.VarcharToSQL() ?? ""}'
+                   , '{entity.Local?.VarcharToSQL() ?? ""}'
+                   , '{entity.Observacao?.VarcharToSQL() ?? ""}'
+                   , '{entity.Objetivo?.VarcharToSQL() ?? ""}'
+                   , '{entity.DataHora.DatatimeToSQL()}'
+                   , '{(entity.DataHoraIni.DatatimeToSQL())}'
+                   , '{entity.LocalizacaoIni?.VarcharToSQL() ?? ""}'
+                   , '{(entity.datahorafim.DatatimeToSQL())}'
+                   , '{entity.LocalizacaoFim?.VarcharToSQL() ?? ""}');";
+
                 var cn = new SqlSystemConnect(ConnectionString);
                 ID = cn.Query<long>(_query, buffered: true, commandTimeout: 1440).FirstOrDefault();
                 return await Task.FromResult(ID).ConfigureAwait(false);
@@ -114,7 +137,7 @@ namespace Agenda.Repositorio.Repositorios.Agenda
             {
                 var _page = ((page <= 0 ? 1 : page) - 1) * 10;
                 var _length = (length ?? 10);
-                var _query = string.Format("exec precisa_criar_funcion {0}, {1}, {2}, {3}, '{4}';", _identidade.IdEmpresaLogado, _identidade.IdUsuarioLogado, _page, _length, (search ?? "")?.Trim().VarcharToSQL());
+                var _query = string.Format("select * from public.fn_carregar_combo_status ({0}, {1}, {2}, {3}, '{4}');", _identidade.IdEmpresaLogado, _identidade.IdUsuarioLogado, _page, _length, (search ?? "")?.Trim().VarcharToSQL());
                 var cn = new SqlSystemConnect(ConnectionString);
                 var _result = cn.Query<DataSelect2DTO>(_query, buffered: true, commandTimeout: 1440);
 
@@ -128,13 +151,13 @@ namespace Agenda.Repositorio.Repositorios.Agenda
             }
         }
 
-        public async Task<IEnumerable<DataSelect2DTO>> CarregarComboTipoSolitacao(string search, int page, int? length = 10)
+        public async Task<IEnumerable<DataSelect2DTO>> CarregarComboTipoSolicitacao(string search, int page, int? length = 10)
         {
             try
             {
                 var _page = ((page <= 0 ? 1 : page) - 1) * 10;
                 var _length = (length ?? 10);
-                var _query = string.Format("exec precisa_criar_funcion {0}, {1}, {2}, {3}, '{4}';", _identidade.IdEmpresaLogado, _identidade.IdUsuarioLogado, _page, _length, (search ?? "")?.Trim().VarcharToSQL());
+                var _query = string.Format("select * from public.fn_carregar_combo_tiposolicitacao ({0}, {1}, {2}, {3}, '{4}');", _identidade.IdEmpresaLogado, _identidade.IdUsuarioLogado, _page, _length, (search ?? "")?.Trim().VarcharToSQL());
                 var cn = new SqlSystemConnect(ConnectionString);
                 var _result = cn.Query<DataSelect2DTO>(_query, buffered: true, commandTimeout: 1440);
 
@@ -154,7 +177,7 @@ namespace Agenda.Repositorio.Repositorios.Agenda
             {
                 var _page = ((page <= 0 ? 1 : page) - 1) * 10;
                 var _length = (length ?? 10);
-                var _query = string.Format("exec precisa_criar_funcion {0}, {1}, {2}, {3}, '{4}';", _identidade.IdEmpresaLogado, _identidade.IdUsuarioLogado, _page, _length, (search ?? "")?.Trim().VarcharToSQL());
+                var _query = string.Format("select * from public.fn_carregar_combo_empresas ({0}, {1}, {2}, {3}, '{4}');", _identidade.IdEmpresaLogado, _identidade.IdUsuarioLogado, _page, _length, (search ?? "")?.Trim().VarcharToSQL());
                 var cn = new SqlSystemConnect(ConnectionString);
                 var _result = cn.Query<DataSelect2DTO>(_query, buffered: true, commandTimeout: 1440);
 

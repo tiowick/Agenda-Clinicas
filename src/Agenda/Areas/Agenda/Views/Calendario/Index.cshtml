@@ -64,11 +64,131 @@
 </div>
 
 <script type="text/javascript">
-    // Como jQuery já carregou no HEAD, isso aqui roda liso
-    $(document).ready(function() {
-        console.log("Layout centralizado funcionando!");
 
-        // Exemplo: Inicializar Select2 se precisar manualmente
-        $('.select2').select2();
+    $('#TipoSolicitacao').select2({
+        language: "pt-br",
+        dropdownParent: $('#modalCriacaoAgenda'),
+        ajax: ({
+            url: "/Agenda/Calendario/CarregarComboTipoSolicitacao",
+            dataType: "json",
+            delay: 250,
+            maximumSelectionLength: 1,
+            minimumInputLength: 3,
+            maximumInputLength: 20,
+            tags: true,
+            placeholder: "Escolha uma opção",
+            allowClear: true,
+            width: '100%',
+            data: function (params) {
+                var query = {
+                    search: params.term,
+                    page: params.page,
+                    type: 'public'
+                }
+                if (params.term == "*") query.items = [];
+                return query;
+            },
+            processResults: function (result, params) {
+
+                if (result.JsonTypes !== "success") {
+                    noty({ text: result.Mensagem, layout: 'topRight', type: result.JsonTypes, dismissQueue: true, modal: false, timeout: 7000 });
+                }
+
+                params.page = params.page || 1;
+                return {
+                    pagination: {
+                        more: true
+                    },
+                    results: result.Data
+                }
+            }
+        })
     });
+
+
+    $('#EmpresaId').select2({
+        language: "pt-br",
+        dropdownParent: $('#modalCriacaoAgenda'),
+        ajax: ({
+            url: "/Agenda/Calendario/CarregarComboEmpresas",
+            dataType: "json",
+            delay: 250,
+            maximumSelectionLength: 1,
+            minimumInputLength: 3,
+            maximumInputLength: 20,
+            tags: true,
+            placeholder: "Escolha uma opção",
+            allowClear: true,
+            width: '100%',
+            data: function (params) {
+                var query = {
+                    search: params.term,
+                    page: params.page,
+                    type: 'public'
+                }
+                if (params.term == "*") query.items = [];
+                return query;
+            },
+            processResults: function (result, params) {
+
+                if (result.JsonTypes !== "success") {
+                    noty({ text: result.Mensagem, layout: 'topRight', type: result.JsonTypes, dismissQueue: true, modal: false, timeout: 7000 });
+                }
+
+                params.page = params.page || 1;
+                return {
+                    pagination: {
+                        more: true
+                    },
+                    results: result.Data
+                }
+            }
+        })
+    });
+
+
+    $('#Situacao').select2({
+        language: "pt-br",
+        dropdownParent: $('#modalCriacaoAgenda'),
+        ajax: ({
+            url: "/Agenda/Calendario/CarregarComboStatus",
+            dataType: "json",
+            delay: 250,
+            maximumSelectionLength: 1,
+            minimumInputLength: 3,
+            maximumInputLength: 20,
+            tags: true,
+            placeholder: "Escolha uma opção",
+            allowClear: true,
+            width: '100%',
+            data: function (params) {
+                var query = {
+                    search: params.term,
+                    page: params.page,
+                    type: 'public'
+                }
+                if (params.term == "*") query.items = [];
+                return query;
+            },
+            processResults: function (result, params) {
+
+                if (result.JsonTypes !== "success") {
+                    noty({ text: result.Mensagem, layout: 'topRight', type: result.JsonTypes, dismissQueue: true, modal: false, timeout: 7000 });
+                }
+
+                params.page = params.page || 1;
+                return {
+                    pagination: {
+                        more: true
+                    },
+                    results: result.Data
+                }
+            }
+        })
+    });
+
+
+
+
+
 </script>

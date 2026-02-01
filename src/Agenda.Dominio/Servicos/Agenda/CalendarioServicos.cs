@@ -47,9 +47,9 @@ namespace Agenda.Dominio.Servicos.Agenda
             return _result;
         }
 
-        public async Task<IEnumerable<DataSelect2DTO>> CarregarComboTipoSolitacao(string search, int page, int? length = 10)
+        public async Task<IEnumerable<DataSelect2DTO>> CarregarComboTipoSolicitacao(string search, int page, int? length = 10)
         {
-            var _result = await _repositorio.CarregarComboTipoSolitacao(search, page, length).ConfigureAwait(true);
+            var _result = await _repositorio.CarregarComboTipoSolicitacao(search, page, length).ConfigureAwait(true);
             ErrorRepositorio = _repositorio.ErrorRepositorio;
             MessageError = _repositorio.MessageError;
             return _result;

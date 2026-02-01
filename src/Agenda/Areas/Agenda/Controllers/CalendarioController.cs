@@ -109,13 +109,13 @@ namespace Agenda.Areas.Agenda.Controllers
         }
 
         [HttpGet]
-        public async Task<JsonResult> CarregarComboTipoSolitacao(string? search, int? page)
+        public async Task<JsonResult> CarregarComboTipoSolicitacao(string? search, int? page)
         {
             try
             {
                 var _page = page ?? 1;
                 using var app = new CalendarioAppServicos(base.UserIdentity, base.Configuration, base.Identidade);
-                var _result = await app.CarregarComboTipoSolitacao(search ?? "", _page);
+                var _result = await app.CarregarComboTipoSolicitacao(search ?? "", _page);
                 var _type = !app.ErrorRepositorio ? ResponseJsonTypes.Success : ResponseJsonTypes.Error;
                 var _return = await ResponseJson(_type, app.MessageError, _result, _result.Count()).ConfigureAwait(false);
 
@@ -143,6 +143,8 @@ namespace Agenda.Areas.Agenda.Controllers
             catch (Exception ex) { return await ResponseJson(ResponseJsonTypes.Error, ex.Message); }
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<JsonResult> Editar(long idItem)
         {
             try

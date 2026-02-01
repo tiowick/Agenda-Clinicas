@@ -66,9 +66,9 @@ namespace Agenda.Aplicacao.Entidades.Agenda
             return result.GetOptionsSelect2(page);
         }
 
-        public async Task<IEnumerable<DataSelect2DTO>> CarregarComboTipoSolitacao(string search, int page, int? length = 10)
+        public async Task<IEnumerable<DataSelect2DTO>> CarregarComboTipoSolicitacao(string search, int page, int? length = 10)
         {
-            var result = await _servico.CarregarComboTipoSolitacao(search, page, length).ConfigureAwait(true);
+            var result = await _servico.CarregarComboTipoSolicitacao(search, page, length).ConfigureAwait(true);
             return result.GetOptionsSelect2(page);
         }
 

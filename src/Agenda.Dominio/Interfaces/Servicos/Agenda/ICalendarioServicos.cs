@@ -15,7 +15,7 @@ namespace Agenda.Dominio.Interfaces.Servicos.Agenda
     {
         Task<IEnumerable<DataSelect2DTO>> CarregarComboEmpresas(string search, int page, int? length = 10);
         Task<IEnumerable<DataSelect2DTO>> CarregarComboStatus(string search, int page, int? length = 10);
-        Task<IEnumerable<DataSelect2DTO>> CarregarComboTipoSolitacao(string search, int page, int? length = 10);
+        Task<IEnumerable<DataSelect2DTO>> CarregarComboTipoSolicitacao(string search, int page, int? length = 10);
         Task<RetornoGridPaginado<Calendario>> CarregarGridEnventosCalendario(DataTableSearch search, int start, int draw, int length = 10);
     }
 }
