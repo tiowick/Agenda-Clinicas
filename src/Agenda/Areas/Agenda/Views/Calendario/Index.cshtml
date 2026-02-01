@@ -82,7 +82,7 @@
             data: function (params) {
                 var query = {
                     search: params.term,
-                    page: params.page,
+                    page: params.page || 1,
                     type: 'public'
                 }
                 if (params.term == "*") query.items = [];
@@ -95,9 +95,11 @@
                 }
 
                 params.page = params.page || 1;
+                var _more = (params.page * 10) < result.RecordsTotal;
+
                 return {
                     pagination: {
-                        more: true
+                        more: _more
                     },
                     results: result.Data
                 }
@@ -123,7 +125,7 @@
             data: function (params) {
                 var query = {
                     search: params.term,
-                    page: params.page,
+                    page: params.page || 1,
                     type: 'public'
                 }
                 if (params.term == "*") query.items = [];
@@ -136,9 +138,11 @@
                 }
 
                 params.page = params.page || 1;
+                var _more = (params.page * 10) < result.RecordsTotal;
+
                 return {
                     pagination: {
-                        more: true
+                        more: _more
                     },
                     results: result.Data
                 }
@@ -164,7 +168,7 @@
             data: function (params) {
                 var query = {
                     search: params.term,
-                    page: params.page,
+                    page: params.page || 1,
                     type: 'public'
                 }
                 if (params.term == "*") query.items = [];
@@ -177,18 +181,16 @@
                 }
 
                 params.page = params.page || 1;
+                var _more = (params.page * 10) < result.RecordsTotal;
+
                 return {
                     pagination: {
-                        more: true
+                        more: _more
                     },
                     results: result.Data
                 }
             }
         })
     });
-
-
-
-
 
 </script>
