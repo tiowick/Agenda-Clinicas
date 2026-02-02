@@ -115,7 +115,7 @@
   <ItemGroup>
     <Folder Include="Areas\Acessos\Views\Shared\" />
     <Folder Include="Areas\Basico\Views\Shared\" />
-    <Folder Include="Areas\Clientes\" />
+    <Folder Include="Areas\Clientes\Views\" />
     <Folder Include="Areas\Empresas\Views\Shared\" />
     <Folder Include="Areas\Grupos\" />
     <Folder Include="Areas\Pacientes\" />
