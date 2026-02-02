@@ -119,7 +119,6 @@
     <Folder Include="Areas\Empresas\Views\Shared\" />
     <Folder Include="Areas\Grupos\" />
     <Folder Include="Areas\Pacientes\" />
-    <Folder Include="Areas\Produtos\Views\" />
     <Folder Include="Areas\Setores\" />
     <Folder Include="Areas\Solicitacoes\Views\Shared\" />
     <Folder Include="wwwroot\assets\libs\bootstrap-filestyle2\src\" />
