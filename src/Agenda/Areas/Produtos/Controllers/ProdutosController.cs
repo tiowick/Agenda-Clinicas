@@ -1,7 +1,6 @@
-﻿using Agenda.Aplicacao.Entidades.Agenda;
-using Agenda.Aplicacao.Entidades.Empresas;
+﻿using Agenda.Aplicacao.Entidades.Empresas;
+using Agenda.Aplicacao.Entidades.Produtos;
 using Agenda.Controllers;
-using Agenda.Dominio.Entidades.Agenda;
 using Agenda.Dominio.Entidades.Empresas;
 using Agenda.Dominio.Interfaces.Autenticacao;
 using Agenda.Dominio.Reflection;
@@ -16,13 +15,13 @@ using System.Security.Principal;
 using static Agenda.Dominio.Enuns.IGroupPolicies;
 using static Agenda.Dominio.Enuns.IResponseController;
 
-namespace Agenda.Areas.Empresas.Controllers
+namespace Agenda.Areas.Produtos.Controllers
 {
     [Authorize]
-    [Area("Agenda")]
-    public class EmpresaController : BasicController
+    [Area("Produtos")]
+    public class ProdutosController : BasicController
     {
-        public EmpresaController(
+        public ProdutosController(
              [FromServices] IWebHostEnvironment environment
              , IHttpContextAccessor context
              , IConfiguration configuration
@@ -40,9 +39,12 @@ namespace Agenda.Areas.Empresas.Controllers
             return await Task.FromResult(View()).ConfigureAwait(false);
         }
 
+        // ProdutosAppServicos
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<JsonResult> AlterarEmpresas([FromForm] Empresa dados)
+        public async Task<JsonResult> AlterarProdutos([FromForm] Produto dados)
         {
             try
             {
@@ -61,7 +63,7 @@ namespace Agenda.Areas.Empresas.Controllers
                     throw new TratamentoExcecao(_erroMensagem.Traduzir());
                 }
 
-                using var app = new EmpresasAppServicos(base.UserIdentity, base.Configuration, base.Identidade);
+                using var app = new ProdutosAppServicos(base.UserIdentity, base.Configuration, base.Identidade);
                 _ = await app.CreateOrUpdate(dados);
 
                 return await ResponseJson(ResponseJsonTypes.Success);
@@ -76,7 +78,7 @@ namespace Agenda.Areas.Empresas.Controllers
         {
             try
             {
-                using var app = new EmpresasAppServicos(base.UserIdentity, base.Configuration, base.Identidade);
+                using var app = new ProdutosAppServicos(base.UserIdentity, base.Configuration, base.Identidade);
                 var _result = await app.GetData(idItem);
                 var _return = await ResponseJson(ResponseJsonTypes.Success, "", _result.FirstOrDefault()).ConfigureAwait(false);
 
@@ -92,7 +94,7 @@ namespace Agenda.Areas.Empresas.Controllers
         {
             try
             {
-                using var app = new EmpresasAppServicos(base.UserIdentity, base.Configuration, base.Identidade);
+                using var app = new ProdutosAppServicos(base.UserIdentity, base.Configuration, base.Identidade);
                 var _result = await app.Delete(idItem);
                 var _type = !app.ErrorRepositorio ? ResponseJsonTypes.Success : ResponseJsonTypes.Error;
                 var _return = await ResponseJson(_type, app.MessageError, _result).ConfigureAwait(false);
@@ -102,8 +104,6 @@ namespace Agenda.Areas.Empresas.Controllers
             catch (TratamentoExcecao e) { return await ResponseJson(ResponseJsonTypes.Error, e.Message); }
             catch (Exception ex) { return await ResponseJson(ResponseJsonTypes.Error, ex.Message); }
         }
-
-
 
     }
 }
